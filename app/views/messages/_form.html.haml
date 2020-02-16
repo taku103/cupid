@@ -1,0 +1,27 @@
+= form_with(model: message, local: true) do |form|
+  - if message.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(message.errors.count, "error")
+        prohibited this message from being saved:
+      %ul
+        - message.errors.full_messages.each do |message|
+          %li= message
+  %span
+  = image_tag "arrow_top.png"
+  %ul.more_list
+    %li
+      = link_to '詳細', "/messages/#{message.id}", method: :get 
+    %li
+      = link_to '編集', "/messages/#{message.id}/edit", method: :get
+    %li
+      = link_to '削除', "/messages/#{message.id}", method: :delete
+
+  .field
+    = form.label :content
+    = form.text_area :content
+  .field
+    = form.label :image
+    = form.file_field :image, class: 'input_box_image__file'
+  .actions
+    = form.submit 'Send', class: "submit-btn"
