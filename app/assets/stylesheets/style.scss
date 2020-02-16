@@ -1,0 +1,217 @@
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background: #fff;
+  
+  // background-color: rgb(200, 200, 255);
+  .headerBox{
+    height: 50px;
+    padding: 15px 0;
+    margin: 0;
+    display: flex;
+    // background-color: rgb(213, 255, 213);
+
+    .header-logoBox{
+      
+      .cupidImage{
+        height: 50px;
+        &:hover{
+          opacity: 0.5;
+        }
+      }
+    }
+    .header_navBox{
+      display: flex;
+      list-style: none;
+      margin-left: 240px;
+      width: 400px;
+      a{
+        color: #333;
+        text-decoration: none;
+      }
+      .headLink_list{
+        margin-left: 25px;
+        text-align: center;
+        padding: 17px 0;
+
+        .list_link{
+          width: 100%;
+          font-size: 14px;
+          &:hover{
+            color: rgb(180, 180, 40);
+          }
+        }
+      }
+    }
+    .header_rightBox{
+      display: flex;
+      padding: 7px 0;
+      a{
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .facebookLogin{
+        margin-left: 5px;
+        border: 1px #3456a8 solid;
+        border-radius: 20px;
+        color: #3456a8;
+        line-height: 35px;
+        padding: 0 15px;
+        &:hover{
+          background-color: #3456a8;
+          color: #ffffff;
+        }
+      }
+      .mailLogin{
+        margin-left: 5px;
+        border: 1px #ce9e1b solid;
+        border-radius: 20px;
+        color: #ce9e1b;
+        line-height: 35px;
+        padding: 0 15px;
+        &:hover{
+          background-color: #ce9e1b;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+.main_topPage{
+  padding-top: 80px;
+  .topPage_container{
+    display: flex;
+    padding: 0 20px 40px 20px;
+    .top_visual_left{
+      width: 300px;
+      .left_title{
+        position: relative;
+        margin-bottom: 80px;
+        .loveKeepText{
+          position: absolute;
+          display: flex;
+          top: 20px;
+          left: 110px;
+          font-size: 20px;
+          color: rgb(0, 204, 211);
+          .attention{
+            margin-left: 3px;
+            font-size: 11px;
+            color: rgb(150, 150, 150);
+          }
+        }
+        .numberOne{
+          position: absolute;
+          top: 0;
+          font-size: 150px;
+          color: rgb(0, 204, 211);
+          display: flex;
+          position: relative;
+          .one_large{
+            position: absolute;
+            top: 0;
+            left: 210px;
+          }
+        }
+        .title_text{
+          font-size: 63px;
+          color: rgb(75, 75, 75);
+          line-height: 1.2;
+        }
+        .title_subtext{
+          font-size: 34px;
+          color: rgb(75, 75, 75);
+          font-weight: bold;
+        }
+      }
+      .left_bottom{
+        .subtitle{
+          text-align: center;
+          font-weight: bold;
+          font-size: 22px;
+          color: #333;
+          margin-bottom: 20px;
+        }
+        .text{
+          padding: 0 40px 0 25px;
+          font-size: 14px;
+          color: rgb(150, 150, 150);
+          line-height: 1.2;
+          margin-bottom: 30px;
+          .normalLink{
+            color: rgb(150, 150, 150);
+          }
+        }
+        .facebook_link{
+          width: 280px;
+          height: 80px;
+          border-radius: 40px;
+          background-color: rgb(0, 120, 255);
+          margin-bottom: 30px;
+          &:hover{
+            opacity: 0.6;
+          }
+          a{
+            text-decoration: none;
+          }
+          .f_link{
+            display: flex;
+            .f_leftBox{
+              // background-color: rgb(0, 140, 255);
+              margin: 20px 10px;
+              .f_image{
+                width: 40px;
+              }
+            }
+            .f_rightBox{
+              line-height: 1.5;
+              color: #fff;
+              text-align: center;
+              margin-top: 15px;
+              z-index: 9999;
+              .f_text{
+                
+                font-weight: bold;
+                font-size: 20px;
+              }
+              .f_bottom_text{
+                font-size: 10px;
+              }
+            }
+          }
+        }
+        .apple_google_link{
+          display: flex;
+          .aBtn{
+            margin-top: 10px;
+            &:hover{
+              opacity: 0.5;
+            }
+          }
+          .gBtn{
+            &:hover{
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+    .top_visual_right{
+      position: relative;
+      .right_image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -9;
+        .r_image{
+          height: 620px;
+        }
+      }
+    }
+
+  }
+}

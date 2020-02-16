@@ -1,0 +1,45 @@
+.main_topPage
+  .topPage_container
+    .top_visual_left
+      .left_title
+        .loveKeepText
+          恋愛持続率
+          .attention
+            ※1
+        %h2.numberOne
+          No.
+          .one_large
+            1
+        %h2.title_text
+          恋活•婚活
+        %h2.title_subtext
+          マッチングアプリ
+      .left_bottom
+        %h2.subtitle
+          今すぐかんたん無料登録！
+        .text
+          18歳なので、
+          %span
+            = link_to "#", class: "normalLink" do
+              利用規約
+          および
+          %span
+            = link_to "#", class: "normalLink" do
+              プライバシーポリシー
+          に同意して
+        .facebook_link
+          = link_to "#", class: "f_link" do
+            .f_leftBox  
+              = image_tag 'f_logo_RGB-Blue_1024', class: 'f_image'
+            .f_rightBox
+              .f_text
+                Facebookではじめる
+              .f_bottom_text
+                Facebookには一切投稿されません
+        .apple_google_link
+          = link_to image_tag('Download_on_the_App_Store_Badge_JP_RGB_blk_100317', width: '118px', class: 'aBtn'),"#"
+          = link_to image_tag('google-play-badge', width: '160px',class: 'gBtn'),"#"
+    .top_visual_right
+      .right_image
+        = image_tag 'top_mitsumeai', class: 'r_image'
+      
