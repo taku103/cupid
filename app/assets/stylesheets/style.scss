@@ -41,7 +41,7 @@
           width: 100%;
           font-size: 14px;
           &:hover{
-            color: rgb(180, 180, 40);
+            color: rgb(214, 164, 0);
           }
         }
       }
@@ -212,6 +212,34 @@
         }
       }
     }
+  }
+}
+.footer{
+  padding: 0 120px;
+  background-color: #f4f4f4;
+  display: flex;
+  .footer_top{
 
+    .listsBtn{
+      display: flex;
+      list-style: none;
+      font-size: 14px;
+      a{
+        text-decoration: none;
+        line-height: 2;
+        color: #333;
+      }
+      .listBtn{
+        &:hover{
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+  .footer_bottom{
+    margin-left: auto;
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgb(117, 117, 117);
   }
 }
