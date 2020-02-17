@@ -15,8 +15,14 @@
       %li.headLink_list
         = link_to "#", class: "list_link" do
           クピニュース
-    .header_rightBox
-      = link_to "#", class: "facebookLogin" do
-        Facebookでログイン
-      = link_to "#", class: "mailLogin" do
-        メールアドレスでログイン
+    - if user_signed_in?
+      .header_rightBox
+        = link_to "#", class: "logout" do
+          ログアウト
+    - else
+      .header_rightBox
+        = link_to "#", class: "facebookLogin" do
+          Facebookでログイン
+        = link_to "#", class: "mailLogin" do
+          メールアドレスでログイン
+        
