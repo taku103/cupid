@@ -6,11 +6,14 @@
   width: 100%;
   background: #fff;
   
+  
   // background-color: rgb(200, 200, 255);
   .headerBox{
+    width: 90%;
+    min-width: 1070px;
     height: 50px;
     padding: 15px 0;
-    margin: 0;
+    margin: 0 auto;
     display: flex;
     // background-color: rgb(213, 255, 213);
 
@@ -96,7 +99,10 @@
 
 .main_topPage{
   padding-top: 80px;
+  width: 100%;
   .topPage_container{
+    width: 90%;
+    margin: 0 50px 0 auto;
     display: flex;
     padding: 0 20px 40px 20px;
     .top_visual_left{

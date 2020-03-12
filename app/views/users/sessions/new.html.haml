@@ -1,17 +1,38 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
+.loginFormBox
+  = form_with model: @user, url: user_session_path, id: 'new_user', class: 'new_user', local: true do |f|
+    -# = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .loginBox
+      %h2.login_subtitle
+        = image_tag 'cupido_logo', class: 'image'
+        .text
+          ユーザーとしてログイン
+      .nameBox
+        .field
+          = f.label :メールアドレスを入力してください, class: "user_nameLabel"
+          %br/
+          .textFieldBox
+            = f.email_field :email, autofocus: true, class: "user_textField"
+        .field
+          = f.label :パスワード, class: "user_passwordLabel"
+          %br/
+          .textFieldBox
+            = f.password_field :password, autocomplete: "current-password", class: "user_textField"
+      .actions
+        = f.submit "送信", class: "submitBtn"
+  -# .field
+  -#   = f.label :email
+  -#   %br/
+  -#   = f.email_field :email, autofocus: true, autocomplete: "email"
+      .field
+        = f.label :password
+        %br/
+        = f.password_field :password, autocomplete: "current-password"
+      - if devise_mapping.rememberable?
+        .field
+          = f.check_box :remember_me
+-#       = f.label :remember_me
+-#   .actions
+-#     = f.submit "Log in"
 = render "users/shared/links"
+= link_to new_c_user_session_path, class: "change_to_user" do
+  キューピットとしてログイン

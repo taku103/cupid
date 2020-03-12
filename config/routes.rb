@@ -10,6 +10,15 @@ Rails.application.routes.draw do
     registrations:   'users/registrations'
   }
   root "informations#index"
+  resources :mypage do
+    collection do
+      get "search"
+    end
+    collection do
+      get "match"
+    end
+  end
+    
   resources :messages
   resources :informations, only: [:index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

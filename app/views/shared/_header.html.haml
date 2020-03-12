@@ -15,9 +15,9 @@
       %li.headLink_list
         = link_to "#", class: "list_link" do
           クピニュース
-    - if user_signed_in?
+    - if c_user_signed_in?
       .header_rightBox
-        = link_to "#", class: "logout" do
+        = link_to destroy_c_user_session_path, method: :delete, class: "logout" do
           ログアウト
     - else
       .header_rightBox
@@ -25,4 +25,4 @@
           Facebookでログイン
         = link_to "#", class: "mailLogin" do
           メールアドレスでログイン
-        
+        -# = link_to "ログアウト", destroy_user_session_path, method: "delete", class: "btn"
