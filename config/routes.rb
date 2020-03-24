@@ -17,9 +17,41 @@ Rails.application.routes.draw do
     collection do
       get "match"
     end
+    collection do
+      get "follow"
+    end
+    collection do
+      get "find"
+    end
+    collection do
+      get "community"
+    end
   end
-    
-  resources :messages
+  resources :cmypage do
+    collection do
+      get "follower"
+    end
+    collection do
+      get "search"
+    end
+    collection do
+      get "find"
+    end
+    collection do
+      get "community"
+    end
+    collection do
+      get "user"
+    end
+    collection do
+      get "match"
+    end
+  end
+  
+  # resources :messages
+  resources :groups do
+    resources :messages
+  end
   resources :informations, only: [:index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

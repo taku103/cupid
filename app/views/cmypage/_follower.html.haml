@@ -1,0 +1,71 @@
+.c_follower_container
+  .search-result-container
+    %section.head-container
+      %ul.lists
+        %li.list
+          = link_to '#', class: "list_link" do
+            ・【2月29日】あなたに紹介したい人が２人います
+        %li.list
+          = link_to '#', class: "list_link" do
+            ・【3月1日】新しいメッセージが１件あります。
+    .main-searchBox
+      .leftBox
+        = link_to "#", class: "searchBtn" do
+          %i.fas.fa-search
+          -# \f002
+          検索条件設定
+      .centerBox
+        1423人中1~16人表示中
+      .rightBox
+        = link_to "#", class: "BlockBtn" do
+          %i.fas.fa-th
+    %main.main_container
+      %ul.line_block
+        %li.listBox
+          .imageBox
+            .follower_image_link
+              = image_tag "member_photo_noimage_thumb.png", class: "image"
+          .bottomBox
+            .nameBox
+              使徒
+            .love_sustainableBox
+              -# <i class="fas fa-heart"></i>\f004
+              %i.fas.fa-heart
+              80.0%
+            .followerBox
+              -# <i class="fas fa-user-graduate"></i>
+              %i.fas.fa-user-graduate
+              5人
+            .specialtyBox
+              .text
+                %i.fas.fa-star
+                趣味
+                %i.fas.fa-star
+              ネトゲ、ネットサーフィン
+            .followedBox
+              .followedBtn
+                フォロワー
+        %li.listBox
+          .imageBox
+            .follower_image_link
+              = image_tag "member_photo_noimage_thumb.png", class: "image"
+          .bottomBox
+            .nameBox
+              使徒
+            .love_sustainableBox
+              -# <i class="fas fa-heart"></i>\f004
+              %i.fas.fa-heart
+              80.0%
+            .followerBox
+              -# <i class="fas fa-user-graduate"></i>
+              %i.fas.fa-user-graduate
+              5人
+            .specialtyBox
+              .text
+                %i.fas.fa-star
+                趣味
+                %i.fas.fa-star
+              ネトゲ、ネットサーフィン
+            .followedBox
+              .followedBtn
+                フォロワー

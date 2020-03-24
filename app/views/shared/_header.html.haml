@@ -15,10 +15,20 @@
       %li.headLink_list
         = link_to "#", class: "list_link" do
           クピニュース
-    - if c_user_signed_in?
+
+    // 両方のパスがなぜか消されてしまう。まあ、問題はないのだが。
+    - if user_signed_in? && c_user_signed_in?
       .header_rightBox
         = link_to destroy_c_user_session_path, method: :delete, class: "logout" do
-          ログアウト
+          cuログアウト
+    - elsif c_user_signed_in?
+      .header_rightBox
+        = link_to destroy_c_user_session_path, method: :delete, class: "logout" do
+          cログアウト
+    - elsif user_signed_in?
+      .header_rightBox
+        = link_to destroy_user_session_path, method: :delete, class: "logout" do
+          uログアウト
     - else
       .header_rightBox
         = link_to "#", class: "facebookLogin" do

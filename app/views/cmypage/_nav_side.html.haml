@@ -18,19 +18,19 @@
           ミカエル
   %ul.side_main
     %li.nav_list
-      = link_to search_mypage_index_path, class: "nav_link", id: "user_nav_link_1" do
-        キューピットを探す
+      = link_to search_cmypage_index_path, class: "nav_link" do
+        ユーザーを探す
         %i.fas.fa-chevron-right
     %li.nav_list
-      = link_to match_mypage_index_path, class: "nav_link", id: "user_nav_link_2" do
+      = link_to match_cmypage_index_path, class: "nav_link" do
         マッチング一覧
         %i.fas.fa-chevron-right
     %li.nav_list
-      = link_to follow_mypage_index_path, class: "nav_link", id: "user_nav_link_3" do
-        フォローリスト
+      = link_to follower_cmypage_index_path, class: "nav_link" do
+        フォロワーリスト
         %i.fas.fa-chevron-right
     %li.nav_list
-      = link_to find_mypage_index_path, class: "nav_link", id: "user_nav_link_4" do
+      = link_to find_cmypage_index_path, class: "nav_link" do
         コミュニティを探す
         %i.fas.fa-chevron-right
 
