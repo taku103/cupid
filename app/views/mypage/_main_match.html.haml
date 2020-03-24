@@ -1,0 +1,108 @@
+.message_function_container
+  .top_c_user_container
+    %ul.c_user_listsBox
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+      %li.c_user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+        
+  .middle_user_container
+    %ul.user_listsBox
+      %li.user_list
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+
+  .messages_container
+    .top_information
+      キューピット
+      ミカエルさん
+    .top_messages
+      // - if message.x_user_id == current_user.id
+      .my_messageBox
+        .text
+          こんにちは！
+          %br/
+          今日も雨天になってしまいましたね...
+          %br/
+          おうちデートで色々共同生活がどういうものか確かめてみたいのですが、いい案はありますでしょうか？ご教授願いたいです。
+      // - elif message.x_user_id !== curremt_user.id
+      .partsBox
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+        .name_messageBox
+          .nameBox
+            ミカエル
+          .messageBox
+            .text
+              タクミさん、こんにちは！
+              %br/
+              そうですね...
+              %br/
+              おうちデートなら一緒に料理とかされてはいかがでしょうか？
+              %br/
+              共同作業で親密度アップ間違いなしです！
+      // - if message.x_user_id == current_user.id
+      .my_messageBox
+        .text
+          なるほど！
+          %br/
+          それはいい案ですね！楽しそうです！
+          %br/
+          前回のデートで料理の話題になった時にゴーヤやピーマンなどの苦い系が好きと言っていたので、ゴーヤチャンプルとピーマンハンバーグら辺で攻めてみようと思います！
+      .partsBox
+        .imageBox
+          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+        .name_messageBox
+          .nameBox
+            ミカエル
+          .messageBox
+            .text
+              いいですね！
+              %br/
+              あと、スイーツも好きらしいので余力があれば挑戦してはいかがでしょうか？
+              %br/
+              カノンさん、スイーツでも甘さ控えめな物が好みらしいですよ！
+              %br/
+              %br/
+              ちなみにおすすめは甘さ控えめフワフワシフォンケーキです！
+              %br/
+              %br/
+              = link_to "https://cookpad.com/recipe/6051150" do
+                甘さ控えめフワフワシフォンケーキ20cm
+              %br/
+              %br/
+              参考までに✨
+    .bottom_message
+      = form_with(model: @message, local: true) do |form|
+        -# = form_with(model: [@group, @message], local: true) do |form|
+        .inputBox
+          = form.text_field :text, placeholder: "メッセージを入力" , class: "text"
+          = form.label :image, class: "image_label" do
+            = form.file_field :image, class: "upload_image"
+            %i.far.fa-image
+          .submitView
+            = form.submit "", class: "submitBtn"
+            %i.far.fa-paper-plane
+            
+
+  

@@ -1,0 +1,47 @@
+.nav_side
+  .side_header
+    .mypage
+      = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), "#", class: "no_image_link"
+      = link_to "#", class: "center_linkBox" do
+        %h2.name
+          タクミ
+        %h2.region
+          東京
+        %i.fas.fa-chevron-right
+      .bottomBox
+        タクミさんのキューピット
+        %br/
+        = link_to "#" do
+          ケルビム
+        %br/
+        = link_to "#" do
+          ミカエル
+  %ul.side_main
+    %li.nav_list
+      = link_to search_mypage_index_path, class: "nav_link", id: "user_nav_link_1" do
+        キューピットを探す
+        %i.fas.fa-chevron-right
+    %li.nav_list
+      = link_to match_mypage_index_path, class: "nav_link", id: "user_nav_link_2" do
+        マッチング一覧
+        %i.fas.fa-chevron-right
+    %li.nav_list
+      = link_to follow_mypage_index_path, class: "nav_link", id: "user_nav_link_3" do
+        フォローリスト
+        %i.fas.fa-chevron-right
+    %li.nav_list
+      = link_to find_mypage_index_path, class: "nav_link", id: "user_nav_link_4" do
+        コミュニティを探す
+        %i.fas.fa-chevron-right
+
+  %ul.side_footer
+    %li.footer_list
+      = link_to "#", class: "nav_link" do
+        %i.far.fa-question-circle
+        ヘルプ
+    %li.footer_list
+      = link_to "#", class: "nav_link" do
+        = image_tag 'beginner.png', width: '14px', class: 'beginner-image'
+        はじめての方へ
+
+    

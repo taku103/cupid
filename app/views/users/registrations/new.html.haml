@@ -6,6 +6,10 @@
     %br
     = f.text_field :username, autofocus: true
   .field
+    = f.label :nickname
+    %br
+    = f.text_field :nickname, autofocus: true
+  .field
     = f.label :email
     %br/
     = f.email_field :email, autofocus: true, autocomplete: "email"

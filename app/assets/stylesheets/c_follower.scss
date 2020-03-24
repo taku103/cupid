@@ -1,0 +1,204 @@
+.c_follower_container{
+  background-color: green;
+  height: 100%;
+  width: 730px;
+  .search-result-container{
+    .head-container{
+      margin: 15px 0 15px 15px;
+      padding: 8px 20px 20px 20px;
+      background-color: rgb(255, 230, 234);
+      border: 1px rgb(214, 200, 0) solid;
+      width: 673px;
+      font-size: 13px;
+      ul.lists{
+        list-style: none;
+        
+        li.list{
+          margin-top: 12px;
+          a{
+            color: rgb(255, 59, 92);
+            text-decoration: underline;
+            &:hover{
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+    
+    .main-searchBox{
+      display: flex;
+      background-color: rgb(255, 255, 255);
+      .leftBox{
+        width: 150px;
+        height: 40px;
+        padding: 5px 0 0 5px;
+        a{
+          text-decoration: none;
+          color: red;
+        }
+        .searchBtn{
+          border: 1px rgb(255, 0, 85) solid;
+          display: block;
+          text-align: center;
+          width: 100%;
+          height: calc(100% - 10px);
+          line-height: 30px;
+          border-radius: 16px;
+          background-color: #ffffff;
+          filter: drop-shadow(2px 4px 4px rgb(255, 0, 85));
+          // transition: .8s;
+          &:hover{
+            background-color: #fff;
+            margin: 1px 0 0 0.5px;
+            filter: drop-shadow(1.5px 3px 2px rgb(255, 0, 85));
+            // transition: .1s;
+          }
+          &:active{
+            margin: 2px 0 0 1px;
+            background-color: rgb(255, 253, 232);
+            filter: drop-shadow(1px 2px 1px #aaa);
+          }
+        }
+      }
+      .centerBox{
+        color: #333;
+        margin-left: 150px;
+        line-height: 45px;
+      }
+      .rightBox{
+        margin: 0 10px 0 auto;
+        .BlockBtn{
+          line-height: 45px;
+          color: #333;
+        }
+      }
+    }
+    .prayBox{
+      margin: 20px 0 20px 140px;
+      color: #555;
+    }
+    main.main_container{
+      width: 100%;
+      height: 100%;
+
+      ul.line_block{
+        list-style: none;
+        display: flex;
+        margin-bottom: 25px;
+        li.listBox{
+          width: 145px;
+          height: 250px;
+          background-color: #ddd;
+          text-align: center;
+          margin-left: 30px;
+          border-radius: 5px;
+          .imageBox{
+            width: 100%;
+            height: 110px; 
+            margin-top: 2px;
+            // background-color: green;
+            .follower_image_link{
+              display: block;
+              background-color: red;
+              height: 0;
+              // width: 0;
+              &:hover{
+                opacity: 0.7;
+              }
+              .image{  
+                border: 0 #ddd solid; 
+                border-radius: 50%;
+                width: 110px;
+                height: 110px;
+                // background-color: royalblue; 
+              }
+            } 
+          }
+          .bottomBox{
+            font-size: 14px;
+            // background-color: blue;
+            color: #333;
+            width: 100%;
+            position: relative;
+            height: 130px;
+            .nameBox{
+              margin-top: 8px;
+            }
+            .love_sustainableBox{
+              font-size: 13px;
+              margin-top: 8px;
+              display: inline-block;
+              margin-right: 10px;
+              color: rgb(255, 86, 137);
+            }
+            .followerBox{
+              font-size: 13px;
+              margin-top: 8px;
+              display: inline-block;
+              color: red;
+            }
+            .specialtyBox{
+              display: block;
+
+              .text{
+                color: rgb(197, 184, 0);
+                margin-bottom: 4px;
+              }
+              margin-top: 10px;
+            }
+            // フォロー済かどうかを選ぶ
+            .followBox{
+              position: absolute;
+              bottom: 4px;
+              left: 5px;
+              // margin: 4px 0 0 5px;
+              width: calc(100% - 10px);
+              height: 30px;
+              filter: drop-shadow(2px 2px 4px rgb(255, 0, 179));
+              &:active{
+                // margin: 5px 0 0 6px;
+                filter: drop-shadow(1px 1px 2px rgb(255, 0, 179));
+                position: absolute;
+                bottom: 3px;
+                left: 6px;
+              }
+              .followBtn{
+                border: 1px rgb(255, 0, 85) solid;
+                color: rgb(255, 0, 85);
+                background-color: #fff;
+                line-height: 29px;
+                border-radius: 15px;
+                height: 30px;
+                
+                &:hover{
+                  background-color: rgb(255, 0, 85);
+                  color: #fff;
+                  cursor: pointer;
+                }
+                
+              }
+            }
+            .followedBox{
+              
+              position: absolute;
+              bottom: 4px;
+              left: 5px;
+              width: calc(100% - 10px);
+              height: 30px;
+              .followedBtn{
+                background-color: #aaa;
+                border-radius: 15px;
+                height: 30px;
+                line-height: 29px;
+                &:hover{
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

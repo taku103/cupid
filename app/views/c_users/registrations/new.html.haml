@@ -2,11 +2,11 @@
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = render "c_users/shared/error_messages", resource: resource
   .field
-    = f.label :username
+    = f.label :c_username
     %br
     = f.text_field :username, autofocus: true
   .field
-    = f.label :nickname
+    = f.label :nickname 
     %br
     = f.text_field :nickname, autofocus: true
   .field
@@ -27,3 +27,6 @@
   .actions
     = f.submit "Sign up"
 = render "c_users/shared/links"
+= link_to user_registration_path, class: "change_to_user" do
+  ユーザーログイン
+  

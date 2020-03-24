@@ -1,0 +1,48 @@
+.wrapper_find_community
+  .find_community_container
+    .community_header
+      
+      = form_with(url: community_mypage_index_path, local: true) do |form|
+        .searchBox
+          = form.text_field :text, placeholder: "検索したいワードを入れて下さい", class: "text"
+          .searchBtn
+            = button_tag type: :submit, class: "submitBtn" do
+              %i.fas.fa-search
+      
+    .community_main
+      .community_hobby
+        .text
+          趣味
+        %ul.community_lists
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              卓球
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              将棋
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              料理
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              フットボール
+      .community_life_style
+        .text
+          ライフスタイル
+        %ul.community_lists
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              休日はゴロゴロ
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              アウトドア
+          %li.community_list
+            = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+            .name
+              ファミレス常連

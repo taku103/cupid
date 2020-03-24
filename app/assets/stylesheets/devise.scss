@@ -1,0 +1,162 @@
+.loginFormBox{
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  padding: 0px 200px;
+  background-color: #f6f6f6;
+  position: relative;
+  
+  .loginBox{
+    position: absolute;
+    top: 100px;
+    width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    position: relative;
+    height: 450px;
+    
+    .login_subtitle{
+      display: block;
+      position: absolute;
+      top: 50px;
+      background-color: #fff;
+      text-align: center;
+      font-size: 24px;
+      position: relative;
+      .text{
+        position: absolute;
+        top: 16px;
+        left: 320px;
+      }
+      .image{
+        position: absolute;
+        top: 5px;
+        left: 140px;
+        height: 45px;
+      }
+    }
+    .c_nameBox{
+      width: 600px;
+      height: 200px;
+      margin: 0 auto;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      background-color: #fff;
+
+      .field{
+        margin-left: 100px;
+        margin-top: 50px;
+        margin: 30px 0 0 100px;
+        font-weight: bold;
+        font-size: 18px;
+
+        .c_user_nameLabel{
+          padding-top: 20px;
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .c_user_passwordLabel{
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .user_nameLabel{
+          padding-top: 20px;
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .user_passwordLabel{
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .textFieldBox{
+          display: flex;
+          .c_user_textField{
+            font-size: 25px;
+            width: 400px;
+          }
+          .user_textField{
+            font-size: 25px;
+            width: 400px;
+          }
+        }
+      }
+    }
+    .nameBox{
+      width: 600px;
+      height: 200px;
+      position: absolute;
+      top: 100px;
+      left: 70px;
+      background-color: #fff;
+
+      .field{
+        margin-left: 100px;
+        margin-top: 50px;
+        margin: 30px 0 0 100px;
+        font-weight: bold;
+        font-size: 18px;
+
+        .c_user_nameLabel{
+          padding-top: 20px;
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .c_user_passwordLabel{
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .user_nameLabel{
+          padding-top: 20px;
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .user_passwordLabel{
+          display: block;
+          color: rgb(139, 139, 139);
+          margin-bottom: 5px;
+        }
+        .textFieldBox{
+          display: flex;
+          .c_user_textField{
+            font-size: 25px;
+            width: 400px;
+          }
+          .user_textField{
+            font-size: 25px;
+            width: 400px;
+          }
+        }
+      }
+    }
+    .actions{
+      position: absolute;
+      top: 360px;
+      left: 45%;
+      .submitBtn{
+        display: inline-block;
+        width: 100px;
+        color: rgb(231, 208, 1);
+        border: 1px rgb(212, 191, 0) solid;
+        border-radius: 30px;
+        padding: 12px 12px;
+        font-size: 18px;
+        text-align: center;
+        line-height: 1em;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover{
+          color: #fff;
+          background-color: rgb(231, 208, 1);
+        }
+      }
+    }
+  }
+}
