@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     collection do
       get "community"
     end
+    collection do
+      post "create_follow"
+    end 
+    collection do
+      post "destroy_follow"
+    end
   end
   resources :cmypage do
     collection do
