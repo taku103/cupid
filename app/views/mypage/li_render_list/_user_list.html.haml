@@ -1,0 +1,33 @@
+%li.listBox
+  .imageBox
+    .image_link
+      = image_tag "member_photo_noimage_thumb.png", class: "image"
+  .bottomBox
+    .nameBox
+      = c_user.username
+    .love_sustainableBox
+      -# <i class="fas fa-heart"></i>\f004
+      %i.fas.fa-heart
+      80.0%
+    .followerBox
+      -# <i class="fas fa-user-graduate"></i>
+      %i.fas.fa-user-graduate
+      -# 生徒数なら@matches.length * 2、フォロワーならFollows.where(c_user: current_c_user) == @followerに.lengthだが、今回はfollowerにしようと思う。
+      137人
+    .specialtyBox
+      .text
+        %i.fas.fa-star
+        得意分野
+        %i.fas.fa-star
+      愛知県長久手町でのデートプラン
+    .followBox{ id: "#{c_user.id}" }
+      -# 変更
+      = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
+        = form.hidden_field :c_user_id, value: c_user.id
+        = form.hidden_field :user_id, value: current_user.id
+        = form.submit "＋フォロー", class: "followBtn"
+      -# .followBtn
+      -#   ＋フォロー
+        
+        -# %input{c_user: c_user, type: "hidden", value: c_user.id, class: "c_follow_hidden"}
+        -# %input{user: current_user, type: "hidden", value: current_user.id, class: "follow_hidden"}
