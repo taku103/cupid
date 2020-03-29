@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     collection do
       post "destroy_follow"
     end
+    collection do
+      get "follower"
+    end
   end
   resources :cmypage do
     collection do
