@@ -6,11 +6,6 @@ class MypageController < ApplicationController
     
   end
 
-  def match
-    # @group = Group.new
-    # @message = Messages.new
-  end
-
   def find
     
   end
@@ -20,16 +15,33 @@ class MypageController < ApplicationController
   end
 
   def follow
-
+    @follow = Follow.new
+    @c_users = []
+    # フォロー中の人を取得
+    user_follows = Follow.where(user_id: current_user.id, bool: [0, 1])
+    user_follows.each do |user_follow|
+      c_user_id = user_follow.c_user_id
+      c_user = CUser.find(c_user_id)
+      if @c_users.include?(c_user)
+      else
+        @c_users << c_user
+      end
+    end
   end
 
   def follower
+    @follow = Follow.new
     @c_users = []
     # フォロワーの取得
     user_followers = Follow.where(user_id: current_user.id, bool: [1, 2])
     user_followers.each do |user_follower|
       c_user_id = user_follower.c_user_id
-      @c_users << CUser.find(c_user_id)
+      # @c_users << CUser.find(c_user_id)
+      c_user = CUser.find(c_user_id)
+      if @c_users.include?(c_user)
+      else
+        @c_users << c_user
+      end
     end
   end
 
@@ -92,6 +104,23 @@ class MypageController < ApplicationController
     # end
   end
 
+  def match
+    
+  end
+
+  def match_approval
+    @matches = current_user.matches.where(step: 0)
+    @match = Match.new
+  end
+
+  def approve_match
+    
+  end
+
+  def destroy_match
+    
+  end
+
   def search
     @c_users = CUser.all.limit(16)
     @follow = Follow.new
@@ -128,5 +157,14 @@ class MypageController < ApplicationController
   end
   def destroy_follow_two_bool_params
     params.require(:follow).permit(:user_id, :c_user_id).merge(bool: 2)
+  end
+  def approve_match_params
+    params.require(:match).permit(:c_user_id)
+  end
+  def approve_match_user_params
+    params.require(:match_user).permit(:user_id)
+  end
+  def destroy_match_params
+    params.require(:match).permit(:c_user_id)
   end
 end

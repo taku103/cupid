@@ -158,7 +158,38 @@
             background-color: #ddd;
           }
         }
+
         .followed_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
+          }
+        }
+      }
+      .match_ancynchronous_container{
+        position: absolute;
+        top: 0;
+        left: 200px;
+        .match_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
+          }
+        }
+
+        .match_approval_listBox{
           display: block;
           width: 200px;
           height: 36px;

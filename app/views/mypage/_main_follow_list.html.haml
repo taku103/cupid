@@ -15,6 +15,30 @@
     .prayBox
       あなたの幸せがずっと続くための天使と巡り会えますように
     %main.main_container
+      - if @c_users.length != 0 then
+        - for k in 0..3 do
+          %ul.line_block
+            - @c_users.each_with_index do |c_user, i|
+              - if k == 0 then
+                = render partial: "mypage/li_render_list/user_list", locals: { c_user: c_user, i: i, k: k }
+                - if (i+1)%4 == 0 then
+                  - break;
+              -# - elsif k == 1 then
+              -#   - if i >= 4 && i <= 7 then
+              -#     = render partial: "mypage/li_render_list/user_list", locals: { c_user: c_user, i: i, k: k }
+              -#     - if {i+1}%4 == 0 then
+              -#       - break;
+              -# - elsif k == 2 then
+              -#   - if i >= 8 && i <= 11 then
+              -#     = render partial: "mypage/li_render_list/user_list", locals: { c_user: c_user, i: i, k: k }
+              -#     - if {i+1}%4 == 0 then
+              -#       - break;
+              -# - else
+              -#   - if i >= 12 && i <= 15 then
+              -#     = render partial: "mypage/li_render_list/user_list", locals: { c_user: c_user, i: i, k: k }
+              -#     - if {i+1}%4 == 0 then
+              -#       - break;
+
       %ul.line_block
         %li.listBox
           .imageBox

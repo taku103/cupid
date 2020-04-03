@@ -82,40 +82,5 @@ $(function(){
       alert("フォロー解除失敗")
     })
   })
-  $(document).on({
-    'mouseenter': function(){
-      showFollowListHTML(buildFollowListHTML)
-    },
-    'mouseleave': function(){
-      deleteFollowListHTML()
-    }
-  },
-    '#user_nav_link_3'
-  )
-
-
-  // 予め定義する関数
-
-  function showFollowListHTML(html){
-    $(document).find("#user_nav_link_3").append(html)
-  }
-  function deleteFollowListHTML(){
-    $(document).find("#user_nav_link_3").children(".follow_ancynchronous_container").remove()
-  }
-
-
-  // 予め定義する定数
-
-  buildFollowListHTML =
-  `
-  <div class="follow_ancynchronous_container">
-    <a href="/mypage/follow" class="follow_listBox">
-      フォローリスト
-    </a>
-    <a href="/mypage/follower" class="followed_listBox">
-      フォロワーリスト
-    </div>
-  </div>
-  `
-
+  
 })

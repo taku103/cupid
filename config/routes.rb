@@ -35,6 +35,15 @@ Rails.application.routes.draw do
     collection do
       get "follower"
     end
+    collection do
+      get "match_approval"
+    end
+    collection do
+      get "approve_match"
+    end
+    collection do
+      get "destroy_match"
+    end
   end
   resources :cmypage do
     collection do
@@ -54,6 +63,24 @@ Rails.application.routes.draw do
     end
     collection do
       get "match"
+    end
+    collection do
+      get "follow"
+    end
+    collection do
+      get "create_match"
+    end
+    collection do
+      get "match_approvement"
+    end
+    collection do
+      get "select_match"
+    end
+    collection do
+      get "show_user"
+    end
+    collection do
+      get "get_user_id"
     end
   end
   

@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2020_03_24_092532) do
   create_table "match_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "match_id"
+    t.string "content"
+    t.integer "step"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_match_users_on_match_id"

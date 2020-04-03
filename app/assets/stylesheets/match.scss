@@ -176,3 +176,410 @@
     }
   }
 }
+.main_match_approval_container{
+  width: 730px;
+  height: 1300px;
+  // background-color: green;
+  .match_approval_header{
+    width: 100%;
+    margin-bottom: 40px;
+    position: relative;
+    &::after{
+      content: '';
+      position: absolute;
+      left: calc(50% - 150px);
+      width: 300px;
+      border-bottom: 1px #333 solid;
+    }
+    
+    .title{
+      margin: 20px 0;
+      text-align: center;
+      color: #333;
+      font-size: 24px;
+    }
+  }
+  .match_approval_listsBox{
+    width: 730px;
+    li.user_approval_list{
+      height: 130px;
+      // background-color: blue;
+      display: flex;
+      background-color: rgb(248, 248, 248);
+      margin-bottom: 16px;
+      .leftBox{
+        width: 140px;
+        .userBox{
+          position: relative;
+          padding-top: 5px;
+          .text{
+            font-weight: bold;
+            color: #333;
+          }
+          .image_link{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: block;
+            border-radius: 50%;
+            cursor: pointer;
+            .image{
+              width: 100px;
+              height: 100px;
+            }
+          }
+        }
+      }
+      .commentBox{
+        width: 330px;
+        
+        .top{
+          margin-top: 5px;
+          color: #333;
+          border-bottom: 1px #333 solid;
+          width: 180px;
+          margin-bottom: 10px;
+        }
+        .content{
+          font-size: 14px;
+        }
+      }
+      .centerBox{
+        width: 120px;
+        margin-right: 15px;
+        .c_userBox{
+          position: relative;
+          padding-top: 5px;
+          .text{
+            font-weight: bold;
+            color: #333;
+          }
+          .image_link{
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            display: block;
+            border-radius: 50%;
+            cursor: pointer;
+            .image{
+              width: 100px;
+              height: 100px;
+            }
+          }
+        }
+        .userBox{
+          position: relative;
+          padding-top: 5px;
+          .text{
+            font-weight: bold;
+            color: #333;
+          }
+          .image_link{
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            display: block;
+            border-radius: 50%;
+            cursor: pointer;
+            .image{
+              width: 100px;
+              height: 100px;
+            }
+          }
+        }
+      }
+      .approvalBox{
+        .approve_form{
+          .approveBtn{
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100px;
+            height: 40px;
+            border: 0 #333 solid;
+            border-radius: 4px;
+            background-color: rgb(48, 230, 48);
+            cursor: pointer;
+          }
+        }
+        .destroy_form{
+          .rejectBtn{
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100px;
+            height: 40px;
+            border: 0 #333 solid;
+            border-radius: 4px;
+            background-color: red;
+            cursor: pointer;
+          }
+        }
+        .stepBox{
+          
+          .subtitle{
+            margin-top: 5px;
+            font-size: 22px;
+            color: rgb(180, 147, 0);
+          }
+          .text{
+            margin-top: 35px;
+          }
+        }
+      }
+    }
+  }
+}
+.create_match_container{
+  width: 100%;
+  // background-color: goldenrod;
+
+  .headerBox{
+    padding-top: 20px;
+    margin-bottom: 20px;
+    .title{
+      position: relative;
+      text-align: center;
+      font-size: 27px;
+      color: #333;
+      &::after{
+        content: '';
+        width: 200px;
+        border-bottom: 1px #333 solid;
+        position: absolute;
+        top: 40px;
+        left: calc(50% - 100px);
+      }
+    }
+  }
+  .create_match_form{
+    width: 100%;
+    
+    .matching_container{
+      padding: 20px 40px;
+      
+      .flexBox{
+        display: flex;
+        // background-color: green;
+        position: relative;
+        color: #333;
+        .leftBox{
+          width: 240px;
+          .subtitle{
+            margin-top: 5px;
+          }
+          .imageBox{
+            padding: 0 40px;
+            width: 160px;
+            .image_link_create{
+              width: 160px;
+              height: 160px;
+              cursor: pointer;
+              border-radius: 50%;
+              .image{
+                width: 160px;
+                height: 160px;
+              }
+            }
+            
+          }
+          .name{
+            margin: 10px 0 15px 0;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+          }
+          .introduce_area{
+            font-size: 14px;
+            width: 240px;
+            height: 160px;
+          }
+        }
+        .centerBox{
+          width: 100%;
+          .image{
+            margin: 10px 0 0 10px;
+            width: 160px;
+          }
+        }
+        .rightBox{
+          position: absolute;
+          right: 0;
+          width: 240px;
+          .subtitle{
+            margin-top: 5px;
+          }
+          .imageBox{
+            padding: 0 40px;
+            width: 160px;
+            height: 160px;
+            .image_link_create{
+              cursor: pointer;
+              border-radius: 50%;
+              .image{
+                width: 160px;
+                height: 160px;
+              }
+            }
+          }
+          .name{
+            margin: 10px 0 15px 0;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+          }
+          .introduce_area{
+            width: 240px;
+            height: 160px;
+            font-size: 14px;
+          }
+        }
+      }
+      .bottomBox{
+        margin-top: 30px;
+        h3.memo_title{
+          margin-top: 5px;
+          margin-bottom: 5px;
+          font-size: 18px;
+        }
+        .memo{
+          width: 642px;
+          height: 90px;
+          margin-bottom: 20px;
+          font-size: 14px;
+        }
+        .confirmBox{
+          .subtitle{
+            font-size: 18px;
+          }
+          .text{
+
+          }
+        }
+        .submitBtn{
+          margin: 20px 200px;
+          font-size: 20px;
+          border-radius: 8px;
+          background-color: rgb(223, 189, 0);
+          border: 0 solid;
+          width: 240px;
+          height: 50px;
+          text-align: center;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+    }
+  }
+}
+.select_container_background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100vw;
+  // height: 100vh;
+  ul.select_container{
+    position: absolute;
+    top: 80px;
+    left: 18%;
+    list-style: none;
+    display: flex;
+
+    li.listBox{
+      width: 145px;
+      height: 250px;
+      background-color: #ddd;
+      text-align: center;
+      margin-left: 30px;
+      border-radius: 5px;
+      .imageBox{
+        width: 100%;
+        height: 110px; 
+        margin-top: 2px;
+        // background-color: green;
+        .image_link{
+          display: block;
+          background-color: red;
+          height: 0;
+          // width: 0;
+          &:hover{
+            opacity: 0.7;
+          }
+          .image{  
+            border: 0 #ddd solid; 
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            // background-color: royalblue; 
+          }
+        } 
+      }
+      .bottomBox{
+        font-size: 14px;
+        // background-color: blue;
+        color: #333;
+        width: 100%;
+        position: relative;
+        height: 130px;
+        .nameBox{
+          margin-top: 8px;
+        }
+        .love_sustainableBox{
+          font-size: 13px;
+          margin-top: 8px;
+          display: inline-block;
+          margin-right: 10px;
+          color: rgb(255, 86, 137);
+        }
+        .followerBox{
+          font-size: 13px;
+          margin-top: 8px;
+          display: inline-block;
+          color: red;
+        }
+        .specialtyBox{
+          display: block;
+
+          .text{
+            color: rgb(197, 184, 0);
+            margin-bottom: 4px;
+          }
+          margin-top: 10px;
+        }
+        // フォロー済かどうかを選ぶ
+        .selectBox{
+          position: absolute;
+          background-color: transparent;
+          height: 30px;
+          left: 20px;
+          bottom: 5px;
+          filter: drop-shadow(2px 2px 4px rgb(255, 0, 179));
+          &:active{
+            // margin: 5px 0 0 6px;
+            filter: drop-shadow(1px 1px 2px rgb(255, 0, 179));
+            position: absolute;
+            bottom: 4px;
+            left: 22px;
+          }
+          .selectBtn{
+            border: 1px rgb(255, 0, 85) solid;
+            background-color: #fff;
+            line-height: 29px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 20px;
+            width: 105px;
+            height: 30px;
+            &:hover{
+              background-color: rgb(255, 0, 85);
+              color: #fff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

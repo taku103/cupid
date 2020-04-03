@@ -1,0 +1,37 @@
+%li.user_approval_list
+  .leftBox
+    .userBox
+      .text
+        お相手
+      .image_link
+        = link_to image_tag('member_photo_noimage_thumb.png', class: "image"), '#', class: "image_link"
+  .commentBox
+    .top
+      あなたにぴったりな所：
+    .content
+      カノンさんは卓球が大好きで、卓球場に週一で通っているそうです。
+      %br/
+      さらにコスプレ趣味もあり、アニメやゲームも好きです。
+      %br/
+      そんな彼女と今度コミケに一緒に行くのはいかがですか？
+  .centerBox
+    .c_userBox
+      .text
+        キューピット
+      .image_link
+        = image_tag('member_photo_noimage_thumb.png', class: "image")
+  .approvalBox
+    = form_with(model: @match, url: approve_match_mypage_index_path, remote: true, class: "approve_form", id: "approve_form") do |form|
+      -# = form.hidden_field :c_user_id, c_user.id
+      -# = form.hidden_field :user_id, user.id
+      = form.submit "会いたい！", class: "approveBtn"
+    = form_with(model: @match, url: destroy_match_mypage_index_path, remote: true, class: "destroy_form", id: "destroy_form") do |form|
+      -# idだけで破壊してあとはmodelのdependent: :destroyで良いと思う
+      -# = form.hidden_field :c_user_id, c_user.id
+      -# = form.hidden_field :user_id, user.id
+      = form.submit "無理...", class: "rejectBtn"
+
+      
+    -# = form_with(model: @match, url: update_match_mypage_index_path, remote: true, class: "match_form", id: "approve_form_#{i + 1}") do |form|
+
+    -# = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
