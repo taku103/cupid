@@ -368,6 +368,11 @@
           width: 240px;
           .subtitle{
             margin-top: 5px;
+            display: flex;
+            .number_id_1{
+              margin-left: auto;
+              font-size: 12px;
+            }
           }
           .imageBox{
             padding: 0 40px;
@@ -408,7 +413,12 @@
           right: 0;
           width: 240px;
           .subtitle{
+            display: flex;
             margin-top: 5px;
+            .number_id_2{
+              margin-left: auto;
+              font-size: 12px;
+            }
           }
           .imageBox{
             padding: 0 40px;
@@ -481,9 +491,9 @@
   width: 100vw;
   // height: 100vh;
   ul.select_container{
-    position: absolute;
-    top: 80px;
-    left: 18%;
+    
+    margin-top: 80px;
+    margin-left: 18%;
     list-style: none;
     display: flex;
 
@@ -578,6 +588,87 @@
               cursor: pointer;
             }
           }
+        }
+      }
+    }
+  }
+}
+.match_create_confirmation_container{
+  width: 730px;
+  height: 1310px;
+  background-color: rgb(245, 245, 245);
+  .flexBox{
+    display: flex;
+    .image{
+      margin: 10px 0 0px 100px;
+      width: 100px;
+      height: 100px;
+    }
+    .match_text{
+      margin: 60px 0 50px 0;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bolder;
+      color: #333;
+    }
+  }
+  .matching_confirmationBox{
+
+    .matchingPageBtn{
+      margin: 30px auto;
+      width: 220px;
+      height: 50px;
+      text-align: center;
+      a{
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 20px;
+        line-height: 50px;
+        color: #333;
+
+      }
+      .page_link{
+        border: 1px transparent solid;
+        background-color: rgb(236, 180, 59);
+        width: 220px;
+        height: 50px;
+        display: block;
+        filter: drop-shadow(1px 1px 4px rgb(230, 202, 48));
+        transition: 0.3s;
+        &:hover{
+          filter: drop-shadow(1px 1px 1px rgb(230, 202, 48));
+          border: 1px rgb(194, 167, 18) solid;
+          background-color: transparent;
+        }
+      }
+    }
+    .topSearchBtn{
+      margin: 30px auto;
+      width: 220px;
+      height: 50px;
+      text-align: center;
+      a{
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 20px;
+        line-height: 50px;
+        color: #333;
+
+      }
+      .page_link{
+        border: 1px transparent solid;
+        color: #fff;
+        background-color: #444;
+        width: 220px;
+        height: 50px;
+        display: block;
+        filter: drop-shadow(1px 1px 4px #aaa);
+        transition: 0.3s;
+        &:hover{
+          filter: drop-shadow(1px 1px 1px #aaa);
+          color: #333;
+          border: 1px #333 solid;
+          background-color: transparent;
         }
       }
     }

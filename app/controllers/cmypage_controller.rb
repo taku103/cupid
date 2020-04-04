@@ -29,10 +29,24 @@ class CmypageController < ApplicationController
   end
 
   def select_match
-    
+
+  end
+
+  def create_match
+    # binding.pry
+    user_id_1 = params[:user_id_1]
+    user_id_2 = params[:user_id_2]
+    match = current_c_user.matches.create(step: 0, memo: params[:memo])
+    match_user_1 = match.match_users.create(user_id: user_id_1, content: params[:content1], step: 0)
+    match_user_2 = match.match_users.create(user_id: user_id_2, content: params[:content2], step: 0)
+    redirect_to action: :confirm_match
   end
 
   def match_approvement
+    
+  end
+
+  def confirm_match
     
   end
 
@@ -42,8 +56,13 @@ class CmypageController < ApplicationController
     @users = []
     user_ids = []
     # @follows = current_c_user.follows.where(bool: 1)
-    follows = current_c_user.follows.where(bool: 1)
+    follows = current_c_user.follows.where(bool: 1).limit(32)
+    i = 0
     follows.each do |follow|
+      i += 1
+      if i == 17
+        break
+      end
       if user_ids.include?(follow.user_id)
       else
         user_ids << follow.user_id

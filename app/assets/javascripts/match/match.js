@@ -1,6 +1,5 @@
 $(function(){
   $(document).on("click", ".image_link_create", function(){
-    console.log("イメージボックス発火")
     create_str = $(this).attr('id')
     create_id = create_str.replace(/[^0-9^\.]/g,"")
     console.log(create_id)
@@ -12,8 +11,7 @@ $(function(){
       type: "GET",
       dataType: "json",
       // data: {id: user_ids}
-      // processData: false,
-      // contentType: false
+
     })
     .done(function(data){
       console.log(data)
@@ -26,127 +24,30 @@ $(function(){
       let selectHTML =`<ul class="select_container">`
       let ulHTML = `</ul>`
       let divHTML = `</div>`
-      
-      /*
-      forUserHTML =
-      `
-      <li class="listBox">
-        <div class="imageBox">
-          <div class="image_link">
-
-          </div>
-        </div>
-        <div class="bottomBox">
-          <div class="nameBox">
-            ${user.nickname}
-          </div>
-          <div class="love_sustainableBox">
-            <i class="fas fa-heart">
-            </i>
-            80.0%
-          </div>
-          <div class="followerBox">
-            <i class="fas fa-user-graduate">
-            </i>
-            137人
-          </div>
-          <div class="specialtyBox">
-            <div class="text">
-              <i class="fas fa-star">
-              </i>
-              得意分野
-              <i class="fas fa-star">
-              </i>
-            </div>
-            愛知県長久手町でのデートプラン
-          </div>
-          <div class="selectBox" id="${data.users[0].id}">
-            <div class="selectBtn">
-              選択
-            </div>
-          </div>
-        </div>
-      </li>
-      `
-      */
-
-      
       let HTML = backHTML
-      let i = 0
       if(data.users.length !== 0){
         HTML = HTML + selectHTML
-        data.users.forEach(function(user){
-          forUserHTML =
-      `
-      <li class="listBox">
-        <div class="imageBox">
-          <div class="image_link">
-
-          </div>
-        </div>
-        <div class="bottomBox">
-          <div class="nameBox">
-            ${user.nickname}
-          </div>
-          <div class="love_sustainableBox">
-            <i class="fas fa-heart">
-            </i>
-            80.0%
-          </div>
-          <div class="followerBox">
-            <i class="fas fa-user-graduate">
-            </i>
-            137人
-          </div>
-          <div class="specialtyBox">
-            <div class="text">
-              <i class="fas fa-star">
-              </i>
-              得意分野
-              <i class="fas fa-star">
-              </i>
-            </div>
-            愛知県長久手町でのデートプラン
-          </div>
-          <div class="selectBox" id="${user.id}">
-            <div class="selectBtn" id="${create_id}">
-              選択
-            </div>
-          </div>
-        </div>
-      </li>
-      `
-          HTML = HTML + forUserHTML
-        })
+        data.users.forEach(function(user, index){
           
-        
-        HTML = HTML + ulHTML
-        i = i + 1
-      }
-      if(data.users.length > 4){
-        HTML = HTML + selectHTML
-        for(var k=0; k<4; k++){
+          forUserHTML = buildForUserHTML(user, create_id)
           HTML = HTML + forUserHTML
-        }
+          
+          if(index == 3){
+            HTML = HTML + ulHTML
+            HTML = HTML + selectHTML
+          }
+          if(index == 7){
+            HTML = HTML + ulHTML
+            HTML = HTML + selectHTML
+          }
+          if(index == 11){
+            HTML = HTML + ulHTML
+            HTML = HTML + selectHTML
+          }
+        })
         HTML = HTML + ulHTML
-        i = i + 1
       }
-      if(data.users.length > 8){
-        HTML = HTML + selectHTML
-        for(var k=0; k<4; k++){
-          HTML = HTML + forUserHTML
-        }
-        HTML = HTML + ulHTML
-        i = i + 1
-      }
-      if(data.users.length > 12){
-        HTML = HTML + selectHTML
-        for(var k=0; k<4; k++){
-          HTML = HTML + forUserHTML
-        }
-        HTML = HTML + ulHTML
-        i = i + 1
-      }
+      
       HTML = HTML + divHTML
       ShowUserSelects(HTML)
       $(document).find(".select_container_background").height(document_height)
@@ -175,7 +76,7 @@ $(function(){
     .done(function(data){
       console.log(data)
       $(document).find(`.name#${data.select_id}`).text(data.user.nickname)
-      
+      $(document).find(`.number_id_${data.select_id}`).text(`会員id: ${data.user.id}`)
     })
     .fail(function(){
       alert("選択失敗")
@@ -185,9 +86,85 @@ $(function(){
   $(document).on("click", ".select_container_background", function(){
     $(this).remove()
   })
+
+  // マッチング作成
+  $(document).on("click", ".submitBtn#create_matchBtn", function(){
+    console.log("マッチング作成イベント発生")
+    url = "/cmypage/create_match"
+    str_id_1 = $(document).find(".number_id_1").text()
+    str_id_2 = $(document).find(".number_id_2").text()
+    sn_id_1 = str_id_1.replace(/[^0-9^\.]/g,"")
+    sn_id_2 = str_id_2.replace(/[^0-9^\.]/g,"")
+    user_id_1 = parseInt(sn_id_1, 10)
+    user_id_2 = parseInt(sn_id_2, 10)
+    console.log(user_id_1)
+    console.log(str_id_1)
+    console.log(sn_id_1)
+    match_form = $(this).parent().parent().parent()[0]
+    // data_plus = {user_id_1: user_id_1, user_id_2: user_id_2}
+    formData = new FormData(match_form)
+    formData.append("user_id_1", user_id_1)
+    formData.append("user_id_2", user_id_2)
+    // console.log(match_form)
+    // let data = $.extend({}, data_plus, formData)
+    // console.log(data)
+    $.ajax({
+      url: url,
+      data: formData,
+      dataType: "json",
+      type: "POST",
+      processData: false,
+      contentType: false
+    })
+  })
+  
+
   // 前提関数
   function ShowUserSelects(html){
     $(document).find(".show_select_containerBox").append(html)
+  }
+  function buildForUserHTML(user, create_id){
+    forUserHTML =
+    `
+    <li class="listBox">
+      <div class="imageBox">
+        <div class="image_link">
+
+        </div>
+      </div>
+      <div class="bottomBox">
+        <div class="nameBox">
+          ${user.nickname}
+        </div>
+        <div class="love_sustainableBox">
+          <i class="fas fa-heart">
+          </i>
+          80.0%
+        </div>
+        <div class="followerBox">
+          <i class="fas fa-user-graduate">
+          </i>
+          137人
+        </div>
+        <div class="specialtyBox">
+          <div class="text">
+            <i class="fas fa-star">
+            </i>
+            得意分野
+            <i class="fas fa-star">
+            </i>
+          </div>
+          愛知県長久手町でのデートプラン
+        </div>
+        <div class="selectBox" id="${user.id}">
+          <div class="selectBtn" id="${create_id}">
+            選択
+          </div>
+        </div>
+      </div>
+    </li>
+    `
+    return forUserHTML
   }
   // 前提定数
   // showMatchCreateOneHTML =

@@ -68,7 +68,7 @@ Rails.application.routes.draw do
       get "follow"
     end
     collection do
-      get "create_match"
+      post "create_match"
     end
     collection do
       get "match_approvement"
@@ -81,6 +81,9 @@ Rails.application.routes.draw do
     end
     collection do
       get "get_user_id"
+    end
+    collection do
+      get "confirm_match"
     end
   end
   

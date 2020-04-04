@@ -1,0 +1,16 @@
+.wrapped
+  = render "header"
+  .main_contents
+    = render "nav_side"
+    .match_create_confirmation_container
+      .flexBox
+        = image_tag 'love_arrow.png', class: 'image'
+        .match_text
+          マッチング作成が完了しました
+      .matching_confirmationBox
+        .matchingPageBtn
+          = link_to "/cmypage/match", class: "page_link" do
+            一覧で確認
+        .topSearchBtn
+          = link_to "/cmypage/search", class: "page_link" do
+            検索TOP画面へ

@@ -3,6 +3,7 @@ class CreateMatches < ActiveRecord::Migration[5.2]
     create_table :matches do |t|
       t.references :c_user
       t.integer :step
+      t.string :memo
       t.timestamps
     end
   end

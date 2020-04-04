@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_03_24_092532) do
   create_table "matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "c_user_id"
     t.integer "step"
+    t.string "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["c_user_id"], name: "index_matches_on_c_user_id"
