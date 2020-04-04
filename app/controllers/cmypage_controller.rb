@@ -4,12 +4,69 @@ class CmypageController < ApplicationController
   def follow
     # まだ
   end
+
   def follower
     
   end
 
-  def search
+  def create_follow
+    follow_backs = Follow.where(follow_params).where(bool: [0, 1])
+    follows = Follow.where(follow_params).where(bool: 2)
+    if follow_backs.present?
+      follow_backs.each do |follow|
+        follow.destroy
+      end
+      @follow = current_c_user.follows.new(follow_bool_params)
+    else
+      if follows.present?
+        follows.each do |follow|
+          follow.destroy
+        end
+      end
+      @follow = current_c_user.follows.new(follow_two_bool_params)
+    end
+    if @follow.save
+      respond_to do |format|
+        format.json
+      end
+    end
+  end
 
+  def destroy_follow
+    follows = current_c_user.follows.where(destroy_follow_params)
+    @follow = follows.first()
+    my_follows = follows.where(bool: 2)
+    each_other_follows = follows.where(bool: [0, 1])
+    if my_follows.present?
+      my_follows.each do |follow|
+        follow.destroy
+      end
+    else
+      if each_other_follows.present?
+        each_other_follows.each do |follow|
+          follow.destroy
+        end
+      end
+      @follow = current_c_user.follows.create(destroy_follow_zero_bool_params)
+    end
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def search
+    @follow = Follow.new
+    @users = []
+    users = User.limit(32)
+    users.each do |user|
+      if @users.include?(user)
+      else
+        @users << user
+      end
+      if @users.length >= 16
+        break
+      end
+    end
   end
 
   def find
@@ -78,12 +135,20 @@ class CmypageController < ApplicationController
     @select_id = params[:select_id].to_i
     @user = User.find(user_id)
   end
-
-  # protected
-  # def configure_permitted_parameters
-  #   # sign_up時にnameのストロングパラメータを追加
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :nickname])
-  #   # アカウント編集時にnameとprofileのストロングパラメータを追加
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:username, :nickname, :profile])
-  # end
+  private
+  def follow_params
+    params.require(:follow).permit(:user_id)
+  end
+  def follow_bool_params
+    params.require(:follow).permit(:user_id).merge(bool: 1)
+  end
+  def follow_two_bool_params
+    params.require(:follow).permit(:user_id).merge(bool: 2)
+  end
+  def destroy_follow_params
+    params.require(:follow).permit(:user_id)
+  end
+  def destroy_follow_zero_bool_params
+    params.require(:follow).permit(:user_id).merge(bool: 0)
+  end
 end

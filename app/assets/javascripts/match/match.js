@@ -167,12 +167,5 @@ $(function(){
     return forUserHTML
   }
   // 前提定数
-  // showMatchCreateOneHTML =
-  // `
   
-  // `
-  // showMatchCreateTwoHTML =
-  // `
-  
-  // `
 })

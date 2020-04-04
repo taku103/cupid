@@ -4,7 +4,7 @@
       = image_tag "member_photo_noimage_thumb.png", class: "image"
   .bottomBox
     .nameBox
-      = c_user.username
+      = user.username
     .love_sustainableBox
       -# <i class="fas fa-heart"></i>\f004
       %i.fas.fa-heart
@@ -20,32 +20,32 @@
         得意分野
         %i.fas.fa-star
       愛知県長久手町でのデートプラン
-    - follow_status = c_user.follows.find_by(user_id: current_user.id)
+    - follow_status = user.follows.find_by(c_user_id: current_c_user.id)
     - if follow_status.present?
-      - if follow_status.bool == 0 then
-        .followedBox{ id: "#{c_user.id}" }
-          = form_with(model: @follow, url: destroy_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
-            = form.hidden_field :c_user_id, value: c_user.id
-            = form.hidden_field :user_id, value: current_user.id
-            = form.submit "＋フォロー", class: "followedBtn"
+      - if follow_status.bool == 2 then
+        .followedBox{ id: "#{user.id}" }
+          = form_with(model: @follow, url: destroy_follow_cmypage_index_path, remote: true, class: "c_follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :user_id, value: user.id
+            = form.hidden_field :c_user_id, value: current_c_user.id
+            = form.submit "＋フォロー", class: "c_followedBtn"
       - elsif follow_status.bool == 1 then
-        .followedBox{ id: "#{c_user.id}" }
-          = form_with(model: @follow, url: destroy_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
-            = form.hidden_field :c_user_id, value: c_user.id
-            = form.hidden_field :user_id, value: current_user.id
-            = form.submit "フォロバ", class: "followedBtn"
-      - elsif follow_status.bool == 2 then
-        .followBox{ id: "#{c_user.id}" }
-          = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
-            = form.hidden_field :c_user_id, value: c_user.id
-            = form.hidden_field :user_id, value: current_user.id
-            = form.submit "フォロバ", class: "followBtn"
+        .followedBox{ id: "#{user.id}" }
+          = form_with(model: @follow, url: destroy_follow_cmypage_index_path, remote: true, class: "c_follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :user_id, value: user.id
+            = form.hidden_field :c_user_id, value: current_c_user.id
+            = form.submit "フォロバ", class: "c_followedBtn"
+      - elsif follow_status.bool == 0 then
+        .followBox{ id: "#{user.id}" }
+          = form_with(model: @follow, url: create_follow_cmypage_index_path, remote: true, class: "c_follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :user_id, value: user.id
+            = form.hidden_field :c_user_id, value: current_c_user.id
+            = form.submit "フォロバ", class: "c_followBtn"
     - else
-      .followBox{ id: "#{c_user.id}" }
-        = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
-          = form.hidden_field :c_user_id, value: c_user.id
-          = form.hidden_field :user_id, value: current_user.id
-          = form.submit "＋フォロー", class: "followBtn"
+      .followBox{ id: "#{user.id}" }
+        = form_with(model: @follow, url: create_follow_cmypage_index_path, remote: true, class: "c_follow_form", id: "follow_form_#{i + 1}") do |form|
+          = form.hidden_field :user_id, value: user.id
+          = form.hidden_field :c_user_id, value: current_c_user.id
+          = form.submit "＋フォロー", class: "c_followBtn"
       
         -# - c_user.follows.each do |follow|
         -#   - if follow.user_id == current_user.id

@@ -103,17 +103,23 @@
               background-color: red;
               height: 0;
               // width: 0;
-              &:hover{
-                opacity: 0.7;
-              }
-              .image{  
-                border: 0 #ddd solid; 
-                border-radius: 50%;
-                width: 110px;
-                height: 110px;
-                // background-color: royalblue; 
-              }
-            } 
+            }
+            .search_image_link{
+              display: block;
+              background-color: red;
+              height: 0;
+            }
+            &:hover{
+              opacity: 0.7;
+            }
+            .image{  
+              border: 0 #ddd solid; 
+              border-radius: 50%;
+              width: 110px;
+              height: 110px;
+              // background-color: royalblue; 
+            }
+            
           }
           .bottomBox{
             font-size: 14px;
@@ -163,7 +169,7 @@
                 bottom: 3px;
                 left: 6px;
               }
-              .followBtn{
+              .c_followBtn{
                 border: 1px rgb(255, 0, 85) solid;
                 color: rgb(255, 0, 85);
                 background-color: #fff;
@@ -186,7 +192,7 @@
               left: 5px;
               width: calc(100% - 10px);
               height: 30px;
-              .followedBtn{
+              .c_followedBtn{
                 background-color: #aaa;
                 border-radius: 15px;
                 height: 30px;

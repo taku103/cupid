@@ -85,6 +85,12 @@ Rails.application.routes.draw do
     collection do
       get "confirm_match"
     end
+    collection do
+      post "destroy_follow"
+    end
+    collection do
+      post "create_follow"
+    end
   end
   
   # resources :messages
