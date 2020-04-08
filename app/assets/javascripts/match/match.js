@@ -117,6 +117,155 @@ $(function(){
       contentType: false
     })
   })
+
+  $(document).on("click", ".match_c_user_imageBtn", function(e){
+    e.preventDefault()
+    url = "/mypage/show_message"
+    c_user_id = $(this).attr("id")
+    data = {c_user_id: c_user_id}
+
+    // 通信前にc_userのhiddenfieldの情報に書き換えていく
+    $(document).find(".bottom_message").find(".message_bool").val(0)
+    $(document).find(".bottom_message").find(".message_match_c_user_id").val(c_user_id)
+
+    $.ajax({
+      url: url,
+      data: data,
+      dataType: "json",
+      type: "GET"
+    })
+    .done(function(data){
+      console.log("メッセージとユーザーの表示成功")
+      console.log(data)
+      MessageHTML = ``
+      UserHTML = ``
+      
+      data.users.forEach(function(user){
+        UserHTML = UserHTML + ShowUserImageHTML(user)
+      })
+      $(document).find(".user_list").remove()
+      $(document).find(".user_listsBox").prepend(UserHTML)
+      data.messages.forEach(function(message){
+        if (message.content !== ''){
+          message.content = message.content.replace(/\n/g,'<br>')
+        }
+        if (message.bool == 0){
+          MessageHTML = MessageHTML + ShowMessage0HTML(message)
+        }
+        else if (message.bool == 2){
+          MessageHTML = MessageHTML + ShowMessage2HTML(message, data.c_user)
+        }
+      })
+      $(document).find(".top_messages").empty()
+      $(".top_messages").prepend(MessageHTML)
+    })
+    .fail(function(){
+      console.log("表示失敗")
+    })
+  })
+  $(document).on("click", ".match_user_imageBox", function(){
+    url = "/mypage/show_user_message"
+    user_id = $(this).attr("id")
+    data = { user_id: user_id }
+
+    $.ajax({
+      url: url,
+      data: data,
+      dataType: "json",
+      type: "GET"
+    })
+    .done(function(data){
+      console.log("ユーザーメッセージ取得成功")
+      console.log(data)
+      // ユーザーアイコンクリックの時の処理
+      $(document).find(".bottom_message").find(".message_bool").val(1)
+      $(document).find(".bottom_message").find(".message_match_c_user_id").val(data.match_id)
+
+      HTML = ``
+      console.log(data.messages)
+      $(document).find(".top_messages").empty()
+      data.messages.forEach(function(message){
+        message.content = message.content.replace(/\n/, '<br>')
+        if (message.user_id == data.user.id){
+          HTML = HTML + ShowOtherMessage1HTML(message, data.user)
+        }
+        else if(message.user_id != data.user_id){
+          HTML = HTML + ShowMyMessage1HTML(message)
+        } 
+      })
+
+      $(document).find(".top_messages").append(HTML)
+    })
+    .fail(function(){
+      alert("ユーザーメッセージ取得失敗")
+    })
+  })
+
+  // c_userのmatch表示機能
+
+  $(document).on("click", ".match_user_imageBtn_up", function(){
+    url = "/cmypage/show_message"
+    user_id = $(this).attr("id")
+    data = {user_id: user_id}
+    $.ajax({
+      url: url,
+      data: data,
+      dataType: "json",
+      type: "GET"
+    })
+    .done(function(data){
+      UserImageHTML = ``
+      data.users.forEach(function(u){
+        UserImageHTML = UserImageHTML + ShowUserImageHTML(u)
+      })
+      $(document).find(".middle_user_container").children(".user_listsBox").empty()
+      $(document).find(".middle_user_container").children(".user_listsBox").append(UserImageHTML)
+      MessageHTML = ``
+      data.messages.forEach(function(message){
+        message.content = message.content.replace(/\n/g, '<br>')
+        if (message.bool == 0){
+          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.user)
+        }
+        else if (message.bool == 2){
+          MessageHTML = MessageHTML + ShowSendMessageHTML(message)
+        }
+      })
+      $(document).find(".top_messages").empty()
+      $(document).find(".top_messages").append(MessageHTML)
+    })
+    .fail(function(){
+      alert("マッチングユーザーゲット失敗")
+    })
+  })
+  $(document).on("click", ".match_user_imageBtn_down", function(){
+    url = "/cmypage/show_user_message"
+    user_id = $(this).attr("id")
+    data = { user_id: user_id }
+    $.ajax({
+      url: url,
+      data: data,
+      dataType: "json",
+      type: "GET"
+    })
+    .done(function(data){
+      $(document).find(".top_messages").empty()
+      MessageHTML = ``
+      data.messages.forEach(function(message){
+        message.content = message.content.replace(/\n/g, '<br>')
+        if (message.bool == 0){
+          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.user)
+        }
+        else if (message.bool == 2){
+          MessageHTML = MessageHTML + ShowSendMessageHTML(message)
+        }
+      })
+      $(document).find(".top_messages").append(MessageHTML)
+    })
+    .fail(function(){
+      alert("下段ユーザのメッセージ取得失敗")
+    })
+  })
+
   
 
   // 前提関数
@@ -166,6 +315,128 @@ $(function(){
     `
     return forUserHTML
   }
+
+    // show_messageのuser_image表示関数
+  function ShowUserImageHTML(user){
+    HTML = 
+    `
+    <li class="user_list">
+      <div class="match_user_imageBox" id=${user.id}>
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn" id=${user.id}>
+      </div>
+    </li>
+    `
+
+    return HTML
+  }
+    // メッセージ関数
+  function ShowMessage0HTML(message){
+    HTML = 
+    `
+    <div class="my_messageBox" id="${message.id}">
+      <div class="text">
+        ${message.content}
+      </div>
+    </div>
+    `
+    return HTML
+  }
+  function ShowMessage2HTML(message, c_user){
+    HTML = `
+    <div class="partsBox" id="${message.id}">
+      <div class="imageBox">
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
+      </div>
+      <div class="name_messageBox">
+        <div class="nameBox">
+          ${c_user.nickname}
+        </div>
+        <div class="messageBox">
+          <div class="text">
+            ${message.content}
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+    return HTML
+  }
+  function ShowMyMessage1HTML(message){
+    HTML =
+    `
+    <div class="my_messageBox" id="${message.id}">
+      <div class="text">
+        ${message.content}
+      </div>
+    </div>
+    `
+    return HTML
+  }
+  function ShowOtherMessage1HTML(message, user){
+    HTML =
+    `
+    <div class="partsBox" id="${message.id}">
+      <div class="imageBox">
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
+      </div>
+      <div class="name_messageBox">
+        <div class="nameBox">
+          ${user.nickname}
+        </div>
+        <div class="messageBox">
+          <div class="text">
+            ${message.content}
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+    return HTML
+  }
+  function ShowUserImageHTML(user){
+    HTML = 
+    `
+    <li class="user_list">
+      <div class="imageBox">
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn_down" id="${user.id}">
+      </div>
+    </li>
+    `
+    return HTML
+  }
+  function ShowGetMessageHTML(message, user){
+    HTML = 
+    `
+    <div class="partsBox" id="${message.id}">
+      <div class="imageBox">
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
+      </div>
+      <div class="name_messageBox">
+        <div class="nameBox">
+          ${user.nickname}
+        </div>
+        <div class="messageBox">
+          <div class="text">
+            ${message.content}
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+    return HTML
+  }
+  function ShowSendMessageHTML(message){
+    HTML = 
+    `
+    <div class="my_messageBox">
+      <div class="text">
+        ${message.content}
+      </div>
+    </div>
+    `
+    return HTML
+  }
+
   // 前提定数
   
 })

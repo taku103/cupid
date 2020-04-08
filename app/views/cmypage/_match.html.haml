@@ -1,36 +1,18 @@
 .message_function_container
   .top_user_container
     %ul.user_listsBox
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-        
+      - @items.each do |item|
+        -# =item
+        %li.user_list
+          .imageBox
+            = image_tag 'member_photo_noimage_thumb.png', class: 'match_user_imageBtn_up', id: item[:user].id
+      
+      
   .middle_user_container
     %ul.user_listsBox
       %li.user_list
         .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
+          = image_tag 'member_photo_noimage_thumb.png', class: 'match_user_imageBtn_down', id: "ここにajaxで作るときは時user_idを入力"
 
   .messages_container
     .top_information

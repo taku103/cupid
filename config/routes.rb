@@ -39,10 +39,19 @@ Rails.application.routes.draw do
       get "match_approval"
     end
     collection do
-      get "approve_match"
+      post "approve_match"
     end
     collection do
-      get "destroy_match"
+      post "destroy_match"
+    end
+    collection do
+      get "show_message"
+    end
+    collection do
+      post "create_message"
+    end
+    collection do
+      get "show_user_message"
     end
   end
   resources :cmypage do
@@ -90,6 +99,15 @@ Rails.application.routes.draw do
     end
     collection do
       post "create_follow"
+    end
+    collection do
+      post "create_message"
+    end
+    collection do
+      get "show_message"
+    end
+    collection do
+      get "show_user_message"
     end
   end
   

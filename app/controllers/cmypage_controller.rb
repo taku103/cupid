@@ -82,7 +82,73 @@ class CmypageController < ApplicationController
   end
 
   def match
-    
+    matches = current_c_user.matches
+    @items = []
+    matches.each do |match|
+      match.users.each do |user|
+        item = {}
+        if @items.present?
+          @items.each_with_index do |already_item, i|
+            if already_item[:user].id != user.id && @items.length != i + 1
+
+            elsif already_item[:user].id == user.id
+              break
+            elsif already_item[:user].id != user.id && @items.length == i + 1
+              item[:user] = user
+            end
+          end
+        else
+          item[:user] = user
+        end
+        @items << item
+      end
+    end
+  end
+
+  def show_message
+    matches = []
+    c_matches = current_c_user.matches
+    user_id = params[:user_id].to_i
+    @user = User.find(user_id)
+    c_matches.each do |match|
+      match.match_users.each do |match_user|
+        if match_user.user_id == user_id      
+          m = Match.find(match.id)
+          matches << m
+        end
+      end
+    end
+    @other_users = []
+    matches.each do |match|
+      match.match_users.each do |match_user|
+        if match_user.user_id != user_id
+          u = User.find(match_user.user_id)
+          @other_users << u
+        end
+      end
+    end
+    @messages = []
+    send_messages = Message.where(match_c_user_id: current_c_user.id, user_id: user_id, bool: 2)
+    get_messages = Message.where(match_c_user_id: current_c_user.id, user_id: user_id, bool: 0)
+    send_messages.each do |message|
+      @messages << message
+    end
+    get_messages.each do |message|
+      @messages.each_with_index do |array_message, i|
+        if message.id < array_message.id
+          @messages.insert(i, message)
+          break
+        elsif message.id > array_message.id && @messages.length == i + 1
+          @messages.append(message)
+        end
+      end
+    end
+  end
+
+  def show_user_message
+    user_id = params[:user_id]
+    @messages = Message.where(user_id: user_id, match_c_user_id: current_c_user.id, bool: [0, 2])
+    @user = User.find(user_id)
   end
 
   def select_match

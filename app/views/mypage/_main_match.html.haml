@@ -1,43 +1,34 @@
 .message_function_container
   .top_c_user_container
     %ul.c_user_listsBox
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-      %li.c_user_list
-        .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-        
+      - @matches_items.each do |m_items|
+        %li.c_user_list
+          .imageBox
+            = image_tag 'member_photo_noimage_thumb.png', class: 'match_c_user_imageBtn', id: m_items[:c_user].id
+              
   .middle_user_container
     %ul.user_listsBox
-      %li.user_list
+      -# %li.user_list
+      -#   .match_user_imageBox
+      -#     = image_tag 'member_photo_noimage_thumb.png', class: 'match_user_imageBtn', id: "ここにuser_idをmatch.jsで入れる"
+      %li.all_user_list
         .imageBox
-          = image_tag 'member_photo_noimage_thumb.png', class: 'image'
-
+          .all_show_userBtn
+            全て表示
   .messages_container
     .top_information
       キューピット
       ミカエルさん
     .top_messages
       // - if message.x_user_id == current_user.id
+      - if @messages.present?
+        - @messages.each do |message|
+          - if message.bool == 0
+            = render partial: "/shared/my_message", local: {message: message}
+          - if message.bool == 1
+            = render partial: "/shared/other_message", local: {message: message}
+
+      -# = render partial: "/shared/my_message", local: {}
       .my_messageBox
         .text
           こんにちは！
@@ -46,6 +37,7 @@
           %br/
           おうちデートで色々共同生活がどういうものか確かめてみたいのですが、いい案はありますでしょうか？ご教授願いたいです。
       // - elif message.x_user_id !== curremt_user.id
+      -# = render partial: "/shared/other_message", local: {}
       .partsBox
         .imageBox
           = image_tag 'member_photo_noimage_thumb.png', class: 'image'
@@ -93,15 +85,19 @@
               %br/
               参考までに✨
     .bottom_message
-      = form_with(model: @message, local: true) do |form|
+      = form_with(model: @message, url: create_message_mypage_index_path, remote: true) do |form|
+        = form.hidden_field :bool, value: 0, class: "message_bool"
+        = form.hidden_field :user_id, value: current_user.id, class: "message_user_id"
+        = form.hidden_field :match_c_user_id, value: 0, class: "message_match_c_user_id"
+
         -# = form_with(model: [@group, @message], local: true) do |form|
         .inputBox
-          = form.text_field :text, placeholder: "メッセージを入力" , class: "text"
+          = form.text_area :content, placeholder: "メッセージを入力" , class: "match_textarea"
           = form.label :image, class: "image_label" do
             = form.file_field :image, class: "upload_image"
             %i.far.fa-image
           .submitView
-            = form.submit "", class: "submitBtn"
+            = form.submit "", class: "message_submitBtn"
             %i.far.fa-paper-plane
             
 
