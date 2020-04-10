@@ -82,6 +82,7 @@ class CmypageController < ApplicationController
   end
 
   def match
+    @message = Message.new
     matches = current_c_user.matches
     @items = []
     matches.each do |match|
@@ -151,6 +152,11 @@ class CmypageController < ApplicationController
     @user = User.find(user_id)
   end
 
+  def create_message
+    @message = Message.create(create_message_params)
+
+  end
+
   def select_match
 
   end
@@ -216,5 +222,8 @@ class CmypageController < ApplicationController
   end
   def destroy_follow_zero_bool_params
     params.require(:follow).permit(:user_id).merge(bool: 0)
+  end
+  def create_message_params
+    params.require(:message).permit(:user_id, :bool, :content, :match_c_user_id)
   end
 end

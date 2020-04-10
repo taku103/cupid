@@ -75,15 +75,18 @@
               %br/
               参考までに✨
     .bottom_message
-      = form_with(model: @message, local: true) do |form|
+      = form_with(model: @message, url: create_message_cmypage_index_path, remote: true) do |form|
         -# = form_with(model: [@group, @message], local: true) do |form|
+        = form.hidden_field :bool, value: 2, class: "new_message_bool"
+        = form.hidden_field :match_c_user_id, value: current_c_user.id
+        = form.hidden_field :user_id, value: 0, class: "new_message_user_id"
         .inputBox
-          = form.text_field :text, placeholder: "メッセージを入力" , class: "text"
+          = form.text_area :content, placeholder: "メッセージを入力" , class: "match_textarea"
           = form.label :image, class: "image_label" do
             = form.file_field :image, class: "upload_image"
             %i.far.fa-image
           .submitView
-            = form.submit "", class: "submitBtn"
+            = form.submit "", class: "c_message_submitBtn"
             %i.far.fa-paper-plane
             
 

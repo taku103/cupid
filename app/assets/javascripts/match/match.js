@@ -141,7 +141,7 @@ $(function(){
       UserHTML = ``
       
       data.users.forEach(function(user){
-        UserHTML = UserHTML + ShowUserImageHTML(user)
+        UserHTML = UserHTML + ShowImageHTML(user)
       })
       $(document).find(".user_list").remove()
       $(document).find(".user_listsBox").prepend(UserHTML)
@@ -158,6 +158,8 @@ $(function(){
       })
       $(document).find(".top_messages").empty()
       $(".top_messages").prepend(MessageHTML)
+      scroll_height = $(document).find(".top_messages").get(0).scrollHeight
+      $(document).find(".top_messages").scrollTop(scroll_height)
     })
     .fail(function(){
       console.log("表示失敗")
@@ -193,8 +195,9 @@ $(function(){
           HTML = HTML + ShowMyMessage1HTML(message)
         } 
       })
-
       $(document).find(".top_messages").append(HTML)
+      scroll_height = $(document).find(".top_messages").get(0).scrollHeight
+      $(document).find(".top_messages").scrollTop(scroll_height)
     })
     .fail(function(){
       alert("ユーザーメッセージ取得失敗")
@@ -218,6 +221,7 @@ $(function(){
       data.users.forEach(function(u){
         UserImageHTML = UserImageHTML + ShowUserImageHTML(u)
       })
+      $(document).find(".new_message_user_id").val(data.user.id)
       $(document).find(".middle_user_container").children(".user_listsBox").empty()
       $(document).find(".middle_user_container").children(".user_listsBox").append(UserImageHTML)
       MessageHTML = ``
@@ -232,6 +236,8 @@ $(function(){
       })
       $(document).find(".top_messages").empty()
       $(document).find(".top_messages").append(MessageHTML)
+      scroll_height = $(document).find(".top_messages").get(0).scrollHeight
+      $(document).find(".top_messages").scrollTop(scroll_height)
     })
     .fail(function(){
       alert("マッチングユーザーゲット失敗")
@@ -260,6 +266,8 @@ $(function(){
         }
       })
       $(document).find(".top_messages").append(MessageHTML)
+      scroll_height = $(document).find(".top_messages").get(0).scrollHeight
+      $(document).find(".top_messages").scrollTop(scroll_height)
     })
     .fail(function(){
       alert("下段ユーザのメッセージ取得失敗")
@@ -317,7 +325,7 @@ $(function(){
   }
 
     // show_messageのuser_image表示関数
-  function ShowUserImageHTML(user){
+  function ShowImageHTML(user){
     HTML = 
     `
     <li class="user_list">
@@ -428,7 +436,7 @@ $(function(){
   function ShowSendMessageHTML(message){
     HTML = 
     `
-    <div class="my_messageBox">
+    <div class="my_messageBox" id="${message.id}">
       <div class="text">
         ${message.content}
       </div>

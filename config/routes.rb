@@ -110,7 +110,19 @@ Rails.application.routes.draw do
       get "show_user_message"
     end
   end
-  
+  namespace :api do
+    resources :messages do
+      collection do
+        get "index_1"
+      end
+      collection do
+        get "index_2"
+      end
+      collection do
+        get "index_c"
+      end
+    end
+  end
   # resources :messages
   resources :groups do
     resources :messages
