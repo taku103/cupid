@@ -254,6 +254,7 @@ $(function(){
       type: "GET"
     })
     .done(function(data){
+      $(document).find(".new_message_user_id").val(data.user.id)
       $(document).find(".top_messages").empty()
       MessageHTML = ``
       data.messages.forEach(function(message){
