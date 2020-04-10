@@ -3,6 +3,7 @@ class CreateFollows < ActiveRecord::Migration[5.2]
     create_table :follows do |t|
       t.integer :user_id
       t.integer :c_user_id
+      t.integer :bool
       t.timestamps
     end
   end

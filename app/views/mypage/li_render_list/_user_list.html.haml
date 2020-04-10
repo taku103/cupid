@@ -20,12 +20,39 @@
         得意分野
         %i.fas.fa-star
       愛知県長久手町でのデートプラン
-    .followBox{ id: "#{c_user.id}" }
-      -# 変更
-      = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
-        = form.hidden_field :c_user_id, value: c_user.id
-        = form.hidden_field :user_id, value: current_user.id
-        = form.submit "＋フォロー", class: "followBtn"
+    - follow_status = c_user.follows.find_by(user_id: current_user.id)
+    - if follow_status.present?
+      - if follow_status.bool == 0 then
+        .followedBox{ id: "#{c_user.id}" }
+          = form_with(model: @follow, url: destroy_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :c_user_id, value: c_user.id
+            = form.hidden_field :user_id, value: current_user.id
+            = form.submit "＋フォロー", class: "followedBtn"
+      - elsif follow_status.bool == 1 then
+        .followedBox{ id: "#{c_user.id}" }
+          = form_with(model: @follow, url: destroy_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :c_user_id, value: c_user.id
+            = form.hidden_field :user_id, value: current_user.id
+            = form.submit "フォロバ", class: "followedBtn"
+      - elsif follow_status.bool == 2 then
+        .followBox{ id: "#{c_user.id}" }
+          = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
+            = form.hidden_field :c_user_id, value: c_user.id
+            = form.hidden_field :user_id, value: current_user.id
+            = form.submit "フォロバ", class: "followBtn"
+    - else
+      .followBox{ id: "#{c_user.id}" }
+        = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
+          = form.hidden_field :c_user_id, value: c_user.id
+          = form.hidden_field :user_id, value: current_user.id
+          = form.submit "＋フォロー", class: "followBtn"
+      
+        -# - c_user.follows.each do |follow|
+        -#   - if follow.user_id == current_user.id
+        -#     = form.submit "＋フォロバ", class: "followBtn"
+        -#     - break
+        
+
       -# .followBtn
       -#   ＋フォロー
         

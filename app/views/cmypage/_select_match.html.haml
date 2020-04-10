@@ -1,0 +1,49 @@
+.create_match_container
+  .headerBox
+    %h1.title
+      マッチング作成
+  = form_with(model: @match, url: create_match_cmypage_index_path, remote: true, class: "create_match_form") do |form|
+    .matching_container
+      .flexBox
+        .leftBox
+          %h2.subtitle
+            会員様１
+            .number_id_1
+              会員id: 1
+          .imageBox
+            .image_link_create#imageBox_create_1
+              = image_tag "member_photo_noimage_thumb.png", class: "image"
+          .name#1
+            タクミさん
+          = form.text_area :content1, placeholder: "会員様１へ送る会員様２の紹介メッセージ（200字以内）", class: "introduce_area"
+
+        .centerBox
+          = image_tag 'love_arrow.png', class: 'image'
+        .rightBox
+          %h2.subtitle
+            会員様２
+            .number_id_2
+              会員id: 3
+          .imageBox
+            .image_link_create#imageBox_create_2
+              = image_tag "member_photo_noimage_thumb.png", class: "image"
+          .name#2
+            カノンさん
+          = form.text_area :content2, placeholder: "会員様２へ送る会員様１の紹介メッセージ（200字以内）", class: "introduce_area"
+          -# = form.hidden_field :user
+      .bottomBox
+        %h3.memo_title
+          自分用メモ：
+        = form.text_area :memo, placeholder: "あとで見返せる自分用のメモ (会員様からは見えません)", class: "memo"
+        .confirmBox
+          %h2.subtitle
+            ⚠️マッチング作成前に
+          .text
+            ・記入漏れはありませんか？
+            %br/
+            ・会員様の２つの紹介文記入欄は会員様１の下に会員様２の、会員様２の下に会員様１のがあります。お間違えないように今一度確認をよろしくお願いします。
+            %br/
+            %br/
+            以上、誤りがないことを確認して、
+        = form.submit "マッチング申請する", class: "submitBtn", id: "create_matchBtn"
+  .show_select_containerBox

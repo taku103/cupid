@@ -30,37 +30,39 @@ ActiveRecord::Schema.define(version: 2020_03_24_092532) do
   create_table "follows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "c_user_id"
+    t.integer "bool"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "match_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "c_user_id"
+    t.bigint "match_id"
+    t.text "content"
+    t.integer "step"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["c_user_id"], name: "index_match_users_on_c_user_id"
+    t.index ["match_id"], name: "index_match_users_on_match_id"
     t.index ["user_id"], name: "index_match_users_on_user_id"
   end
 
   create_table "matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id"
     t.bigint "c_user_id"
+    t.integer "step"
+    t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["c_user_id"], name: "index_matches_on_c_user_id"
-    t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.string "image"
     t.bigint "user_id"
-    t.bigint "c_user_id"
+    t.integer "match_c_user_id"
+    t.integer "bool"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["c_user_id"], name: "index_messages_on_c_user_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 

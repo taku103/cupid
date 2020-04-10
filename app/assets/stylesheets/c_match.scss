@@ -13,7 +13,7 @@
       .user_list{
         margin: 0 5px;
         .imageBox{
-          .image{
+          .match_user_imageBtn_up{
             width: 100px;
             height: 100px;
           }
@@ -35,7 +35,7 @@
       .user_list{
         margin: 0 5px;
         .imageBox{
-          .image{
+          .match_user_imageBtn_down{
             width: 100px;
             height: 100px;
           }
@@ -127,7 +127,7 @@
       .inputBox{
         display: flex;
         
-        .text{
+        .match_textarea{
           border-radius: 15px / 10px;
           font-size: 18px;
           width: 590px;
@@ -156,7 +156,7 @@
           // margin-left: 58px;
           // background-color: yellow;
           // opacity: 0.3;
-          .submitBtn{
+          .c_message_submitBtn{
             border: 1px solid transparent;
             width: 54px;
             height: 42px;

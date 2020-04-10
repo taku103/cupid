@@ -115,9 +115,7 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
             background-color: rgb(255, 238, 0);
-            height: 2px;
             transform-origin: left;
             transform: scale(0, 1);
             transition: .3s;
@@ -141,6 +139,66 @@
             position: absolute;
             font-size: inherit;
             right: 14px;
+          }
+        }
+      }
+      .follow_ancynchronous_container{
+        position: absolute;
+        top: 0;
+        left: 200px;
+        .follow_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
+          }
+        }
+
+        .followed_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
+          }
+        }
+      }
+      .match_ancynchronous_container{
+        position: absolute;
+        top: 0;
+        left: 200px;
+        .match_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
+          }
+        }
+
+        .match_approval_listBox{
+          display: block;
+          width: 200px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #eee;
+          transition: 0.2;
+          z-index: 1;
+          &:hover{
+            background-color: #ddd;
           }
         }
       }
@@ -381,6 +439,16 @@
                   &:hover{
                     cursor: pointer;
                   }
+                }
+              }
+              // followedBox外でも使えるようにした
+              .followedBtn{
+                background-color: #aaa;
+                border-radius: 15px;
+                height: 30px;
+                line-height: 29px;
+                &:hover{
+                  cursor: pointer;
                 }
               }
             }

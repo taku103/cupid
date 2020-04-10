@@ -32,6 +32,27 @@ Rails.application.routes.draw do
     collection do
       post "destroy_follow"
     end
+    collection do
+      get "follower"
+    end
+    collection do
+      get "match_approval"
+    end
+    collection do
+      post "approve_match"
+    end
+    collection do
+      post "destroy_match"
+    end
+    collection do
+      get "show_message"
+    end
+    collection do
+      post "create_message"
+    end
+    collection do
+      get "show_user_message"
+    end
   end
   resources :cmypage do
     collection do
@@ -52,8 +73,56 @@ Rails.application.routes.draw do
     collection do
       get "match"
     end
+    collection do
+      get "follow"
+    end
+    collection do
+      post "create_match"
+    end
+    collection do
+      get "match_approvement"
+    end
+    collection do
+      get "select_match"
+    end
+    collection do
+      get "show_user"
+    end
+    collection do
+      get "get_user_id"
+    end
+    collection do
+      get "confirm_match"
+    end
+    collection do
+      post "destroy_follow"
+    end
+    collection do
+      post "create_follow"
+    end
+    collection do
+      post "create_message"
+    end
+    collection do
+      get "show_message"
+    end
+    collection do
+      get "show_user_message"
+    end
   end
-  
+  namespace :api do
+    resources :messages do
+      collection do
+        get "index_1"
+      end
+      collection do
+        get "index_2"
+      end
+      collection do
+        get "index_c"
+      end
+    end
+  end
   # resources :messages
   resources :groups do
     resources :messages

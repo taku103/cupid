@@ -29,10 +29,7 @@
       あなたの幸せがずっと続くための天使と巡り会えますように
     %main.main_container
       - if @c_users.length != 0 then
-        -# コントローラーから本来指定するべき
-        
         - for k in 0..3 do
-          -# - @c_users.shift(k * 4)
           %ul.line_block
             - @c_users.each_with_index do |c_user, i|
               - if k == 0 then

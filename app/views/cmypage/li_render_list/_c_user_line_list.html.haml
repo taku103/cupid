@@ -1,0 +1,34 @@
+%li.user_approval_list
+  .leftBox
+    .userBox
+      .text
+        会員様
+      .image_link
+        = image_tag('member_photo_noimage_thumb.png', class: "image")
+  .commentBox
+    .top
+      メモ：
+    .content
+      卓球が大好きという共通点
+      %br/
+      カノンさんはコスプレ、アニメ、ゲーム好きでどれもタクミさんの趣味と合っている
+      %br/
+      一緒にコミケに行ったらどうかと誘ってみた
+  .centerBox
+    .userBox
+      .text
+        会員様
+      .image_link
+        = image_tag('member_photo_noimage_thumb.png', class: "image")
+  .approvalBox
+    
+    .stepBox
+      %h3.subtitle
+        承認済み：
+      .text
+        カノンさん
+
+      
+    -# = form_with(model: @match, url: update_match_mypage_index_path, remote: true, class: "match_form", id: "approve_form_#{i + 1}") do |form|
+
+    -# = form_with(model: @follow, url: create_follow_mypage_index_path, remote: true, class: "follow_form", id: "follow_form_#{i + 1}") do |form|
