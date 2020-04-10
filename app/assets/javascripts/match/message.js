@@ -155,8 +155,11 @@ $(function(){
   var  reloadMessages_2 = function(){
     url = "/api/messages/index_2"
     last_message_id = $(document).find(".top_messages").children().last().attr("id")
-    console.log(last_message_id)
     c_user_id = $(document).find(".message_match_c_user_id").val()
+    if (c_user_id == 0){
+      console.log("c-0")
+      return 0
+    }
     data = { 
       last_id: last_message_id,
       c_user_id: c_user_id
@@ -188,6 +191,9 @@ $(function(){
   var c_reloadMessages = function(){
     url = "/api/messages/index_c"
     user_id = $(document).find(".new_message_user_id").val()
+    if (user_id == 0){
+      return 0
+    }
     last_id = $(document).find(".top_messages").children().last().attr("id")
     console.log(last_id)
     data = { 
