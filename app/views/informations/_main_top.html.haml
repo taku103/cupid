@@ -28,7 +28,7 @@
               プライバシーポリシー
           に同意して
         .facebook_link
-          = link_to "#", class: "f_link" do
+          = link_to user_facebook_omniauth_authorize_path, class: "f_link" do
             .f_leftBox  
               = image_tag 'f_logo_RGB-Blue_1024', class: 'f_image'
             .f_rightBox

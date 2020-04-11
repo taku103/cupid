@@ -9,9 +9,7 @@ $(function(){
       url: url,
       data: {create_id: create_id},
       type: "GET",
-      dataType: "json",
-      // data: {id: user_ids}
-
+      dataType: "json"
     })
     .done(function(data){
       console.log(data)
@@ -254,6 +252,7 @@ $(function(){
       type: "GET"
     })
     .done(function(data){
+      $(document).find(".new_message_user_id").val(data.user.id)
       $(document).find(".top_messages").empty()
       MessageHTML = ``
       data.messages.forEach(function(message){
