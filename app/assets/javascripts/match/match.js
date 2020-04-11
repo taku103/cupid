@@ -9,9 +9,7 @@ $(function(){
       url: url,
       data: {create_id: create_id},
       type: "GET",
-      dataType: "json",
-      // data: {id: user_ids}
-
+      dataType: "json"
     })
     .done(function(data){
       console.log(data)
