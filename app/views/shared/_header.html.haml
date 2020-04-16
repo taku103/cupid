@@ -33,6 +33,8 @@
       .header_rightBox
         = link_to "#", class: "facebookLogin" do
           Facebookでログイン
-        = link_to "#", class: "mailLogin" do
+        = link_to "/mypage/search", class: "mailLogin" do
           メールアドレスでログイン
+        = link_to "/cmypage/search", class: "mailLogin" do
+          キューピット
         -# = link_to "ログアウト", destroy_user_session_path, method: "delete", class: "btn"
