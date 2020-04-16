@@ -3,21 +3,19 @@
     .userBox
       .text
         会員様
+        = match_user[:user1].nickname
       .image_link
         = image_tag('member_photo_noimage_thumb.png', class: "image")
   .commentBox
     .top
       メモ：
     .content
-      卓球が大好きという共通点
-      %br/
-      カノンさんはコスプレ、アニメ、ゲーム好きでどれもタクミさんの趣味と合っている
-      %br/
-      一緒にコミケに行ったらどうかと誘ってみた
+      = safe_join(match_user[:memo].split("\n"), tag(:br))
   .centerBox
     .userBox
       .text
         会員様
+        = match_user[:user2].nickname
       .image_link
         = image_tag('member_photo_noimage_thumb.png', class: "image")
   .approvalBox
@@ -26,7 +24,13 @@
       %h3.subtitle
         承認済み：
       .text
-        カノンさん
+        - if match_user[:step1] == 1 then
+          = match_user[:user1].nickname
+        - elsif match_user[:step2] == 1
+          = match_user[:user2].nickname
+        - else
+          いません
+
 
       
     -# = form_with(model: @match, url: update_match_mypage_index_path, remote: true, class: "match_form", id: "approve_form_#{i + 1}") do |form|

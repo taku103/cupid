@@ -1,0 +1,2 @@
+class Skyway < ApplicationRecord
+end

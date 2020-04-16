@@ -1,5 +1,4 @@
 .c_follower_container{
-  background-color: green;
   height: 100%;
   width: 730px;
   .search-result-container{
@@ -47,12 +46,10 @@
           border-radius: 16px;
           background-color: #ffffff;
           filter: drop-shadow(2px 4px 4px rgb(255, 0, 85));
-          // transition: .8s;
           &:hover{
             background-color: #fff;
             margin: 1px 0 0 0.5px;
             filter: drop-shadow(1.5px 3px 2px rgb(255, 0, 85));
-            // transition: .1s;
           }
           &:active{
             margin: 2px 0 0 1px;
@@ -97,12 +94,10 @@
             width: 100%;
             height: 110px; 
             margin-top: 2px;
-            // background-color: green;
             .follower_image_link{
               display: block;
               background-color: red;
               height: 0;
-              // width: 0;
             }
             .search_image_link{
               display: block;
@@ -117,13 +112,11 @@
               border-radius: 50%;
               width: 110px;
               height: 110px;
-              // background-color: royalblue; 
             }
             
           }
           .bottomBox{
             font-size: 14px;
-            // background-color: blue;
             color: #333;
             width: 100%;
             position: relative;
@@ -203,6 +196,49 @@
               }
             }
           }
+        }
+      }
+    }
+  }
+  .user_detail{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 100px 0 0 100px;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: block;
+    // opacity: 0.5;
+    .user_detail_container{
+      position: relative;
+      width: 550px;
+      .detailBox{
+        background-color: red;
+        position: absolute;
+        top: 100px;
+        left: 200px;
+        .top_contents{
+          .top_side_bar{
+            .tellBox{
+
+            }
+            .messageBox{
+
+            }
+          }
+          .main_image{
+
+          }
+          .bottom_slide_image{
+
+          }
+        }
+        .main_detail{
+          .bottom_sidebar{
+
+          }
+
         }
       }
     }

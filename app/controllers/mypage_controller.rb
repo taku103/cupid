@@ -298,6 +298,38 @@ class MypageController < ApplicationController
     # end
   end
 
+  def skyway
+    @c_user_id = 0
+    @user_id = 0
+    @c_user_id = params[:c_user_id].to_i
+  end
+
+  def create_skyway
+    c_user_id = params[:c_user_id].to_i
+    skyways = Skyway.where(bool: 1, user_c_user_id: current_user.id)
+    # binding.pry
+    if skyways.length != 0
+      @bool = 1
+      @skyway = skyways.last
+      skyways.each do |skyway|
+        skyway.destroy
+      end
+    elsif skyways.length == 0
+      skyway_code = params[:skyway_code]
+      @bool = 0
+      @skyway = Skyway.create(bool: 0, user_c_user_id: c_user_id, code: skyway_code)
+    end
+  end
+
+  def show_c_detail
+    c_user_id = params[:c_user_id]
+    @c_user = CUser.find(c_user_id)
+  end
+
+  def end_call
+    redirect_to action: :match
+  end
+
   protected
   def configure_permitted_parameters
     # sign_up時にnameのストロングパラメータを追加
