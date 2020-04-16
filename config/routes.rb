@@ -54,6 +54,18 @@ Rails.application.routes.draw do
     collection do
       get "show_user_message"
     end
+    collection do
+      get "skyway"
+    end
+    collection do
+      get "create_skyway"
+    end
+    collection do
+      get "show_c_detail"
+    end
+    collection do
+      post "end_call"
+    end
   end
   resources :cmypage do
     collection do
@@ -109,6 +121,18 @@ Rails.application.routes.draw do
     end
     collection do
       get "show_user_message"
+    end
+    collection do
+      get "skyway"
+    end
+    collection do
+      get "create_skyway"
+    end
+    collection do
+      get "show_detail"
+    end
+    collection do
+      post "end_call"
     end
   end
   namespace :api do

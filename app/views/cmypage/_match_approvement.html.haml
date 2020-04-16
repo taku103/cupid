@@ -3,6 +3,12 @@
     %h2.title
       マッチング申請一覧
   %ul.match_approval_listsBox
-    = render "cmypage/li_render_list/c_user_line_list"
-    = render "cmypage/li_render_list/c_user_line_list"
-    = render "cmypage/li_render_list/c_user_line_list"
+    - if @match_users.length == 0 then
+      .textBox
+        現在マッチング申請はありません
+    - elsif @match_users.length != 0 then
+      - @match_users.each do |match_user|
+        = render partial: "cmypage/li_render_list/c_user_line_list", locals: {match_user: match_user}
+    -# = render "cmypage/li_render_list/c_user_line_list"
+    -# = render "cmypage/li_render_list/c_user_line_list"
+    -# = render "cmypage/li_render_list/c_user_line_list"

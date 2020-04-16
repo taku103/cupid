@@ -7,10 +7,6 @@
     filter: drop-shadow(0 -1px 1px #bbb);
     border-bottom: 1px #ddd solid;
   }
-  // border-bottom: 1px #ddd solid;
-
-  
-
   .header_container{
     width: 930px;
     margin: 0 auto;
@@ -72,7 +68,6 @@
           &:hover{
             opacity: 0.7;
           }
-          // link_to doは他の要素を定義できないらしい
           .name{
             
           }
@@ -83,7 +78,7 @@
             margin-left: auto;
             color: #999;
             &:after{
-              // font-family: fontawesome;
+
             }
 
           }
@@ -244,7 +239,6 @@
     }
   }
   .main-search-result{
-    background-color: green;
     height: 100%;
     width: 730px;
     .search-result-container{
@@ -292,12 +286,10 @@
             border-radius: 16px;
             background-color: #ffffff;
             filter: drop-shadow(2px 4px 4px rgb(255, 0, 85));
-            // transition: .8s;
             &:hover{
               background-color: #fff;
               margin: 1px 0 0 0.5px;
               filter: drop-shadow(1.5px 3px 2px rgb(255, 0, 85));
-              // transition: .1s;
             }
             &:active{
               margin: 2px 0 0 1px;
@@ -342,12 +334,10 @@
               width: 100%;
               height: 110px; 
               margin-top: 2px;
-              // background-color: green;
-              .image_link{
+              .c_image_link{
                 display: block;
                 background-color: red;
                 height: 0;
-                // width: 0;
                 &:hover{
                   opacity: 0.7;
                 }
@@ -356,13 +346,25 @@
                   border-radius: 50%;
                   width: 110px;
                   height: 110px;
-                  // background-color: royalblue; 
+                }
+              } 
+              .image_link{
+                display: block;
+                background-color: red;
+                height: 0;
+                &:hover{
+                  opacity: 0.7;
+                }
+                .image{  
+                  border: 0 #ddd solid; 
+                  border-radius: 50%;
+                  width: 110px;
+                  height: 110px;
                 }
               } 
             }
             .bottomBox{
               font-size: 14px;
-              // background-color: blue;
               color: #333;
               width: 100%;
               position: relative;
@@ -397,12 +399,10 @@
                 position: absolute;
                 bottom: 4px;
                 left: 5px;
-                // margin: 4px 0 0 5px;
                 width: calc(100% - 10px);
                 height: 30px;
                 filter: drop-shadow(2px 2px 4px rgb(255, 0, 179));
                 &:active{
-                  // margin: 5px 0 0 6px;
                   filter: drop-shadow(1px 1px 2px rgb(255, 0, 179));
                   position: absolute;
                   bottom: 3px;
@@ -421,7 +421,6 @@
                     color: #fff;
                     cursor: pointer;
                   }
-                  
                 }
               }
               .followedBox{
@@ -461,12 +460,17 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: #fff;
-        opacity: 0.5;
+        padding: 100px 0 0 100px;
+        background-color: rgba(255, 255, 255, 0.7);
+        display: block;
         .c_user_detail_container{
+          position: relative;
           width: 550px;
-
           .detailBox{
+            background-color: red;
+            position: absolute;
+            top: 100px;
+            left: 200px;
             .top_contents{
               .top_side_bar{
                 .tellBox{

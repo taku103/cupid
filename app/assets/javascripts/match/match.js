@@ -17,7 +17,6 @@ $(function(){
       let create_id = data.create_id
       let document_height = $(document).height()
       // 7行めに<img class="image" src="${data.users[0].image}">
-      
       let backHTML = `<div class="select_container_background">`
       let selectHTML =`<ul class="select_container">`
       let ulHTML = `</ul>`
@@ -49,7 +48,6 @@ $(function(){
       HTML = HTML + divHTML
       ShowUserSelects(HTML)
       $(document).find(".select_container_background").height(document_height)
-      // widthはやらないほうが良い
     })
   })
   $(document).on("click", "#imageBox_create_2", function(){
@@ -59,8 +57,6 @@ $(function(){
   // ユーザーを選択
 
   $(document).on("click", ".selectBox", function(){
-    // console.log(this)
-    // console.log($(this).attr('id'))
     select_id = $(this).children(".selectBtn").attr('id')
     console.log(select_id)
     user_id = $(this).attr('id')
@@ -99,13 +95,9 @@ $(function(){
     console.log(str_id_1)
     console.log(sn_id_1)
     match_form = $(this).parent().parent().parent()[0]
-    // data_plus = {user_id_1: user_id_1, user_id_2: user_id_2}
     formData = new FormData(match_form)
     formData.append("user_id_1", user_id_1)
     formData.append("user_id_2", user_id_2)
-    // console.log(match_form)
-    // let data = $.extend({}, data_plus, formData)
-    // console.log(data)
     $.ajax({
       url: url,
       data: formData,
@@ -154,6 +146,7 @@ $(function(){
           MessageHTML = MessageHTML + ShowMessage2HTML(message, data.c_user)
         }
       })
+      $(document).find(".top_information").text(`キューピット  ${data.c_user.nickname}`)
       $(document).find(".top_messages").empty()
       $(".top_messages").prepend(MessageHTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
@@ -193,6 +186,7 @@ $(function(){
           HTML = HTML + ShowMyMessage1HTML(message)
         } 
       })
+      $(document).find(".top_information").text(`ユーザー  ${data.user.nickname}`)
       $(document).find(".top_messages").append(HTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
       $(document).find(".top_messages").scrollTop(scroll_height)
@@ -232,6 +226,7 @@ $(function(){
           MessageHTML = MessageHTML + ShowSendMessageHTML(message)
         }
       })
+      $(document).find(".top_information").text(`ユーザー  ${data.user.nickname}`)
       $(document).find(".top_messages").empty()
       $(document).find(".top_messages").append(MessageHTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
@@ -264,6 +259,7 @@ $(function(){
           MessageHTML = MessageHTML + ShowSendMessageHTML(message)
         }
       })
+      $(document).find(".top_information").text(`ユーザー  ${data.user.nickname}`)
       $(document).find(".top_messages").append(MessageHTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
       $(document).find(".top_messages").scrollTop(scroll_height)

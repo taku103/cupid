@@ -121,6 +121,7 @@ $(function(){
 
   // 繰り返しリロードクロージャ関数
   var reloadMessages_1 = function(){
+    console.log("index_1")
     url = "/api/messages/index_1"
     last_message_id = $(".top_messages").children().last().attr("id")
     match_id = $(document).find(".message_match_c_user_id").val()
@@ -137,7 +138,7 @@ $(function(){
     })
     .done(function(data){
       console.log(data)
-      if (data.messages.length !== 0){
+      if (data.messages.length != 0){
         HTML = ``
         data.messages.forEach(function(message){
           message.content = message.content.replace(/\n/g, '<br>')
@@ -153,6 +154,7 @@ $(function(){
     })
   }
   var  reloadMessages_2 = function(){
+    console.log("index_2")
     url = "/api/messages/index_2"
     last_message_id = $(document).find(".top_messages").children().last().attr("id")
     c_user_id = $(document).find(".message_match_c_user_id").val()
@@ -171,8 +173,7 @@ $(function(){
       type: "GET"
     })
     .done(function(data){
-      // console.log(data.messages)
-      if (data.messages.length !== 0){
+      if (data.messages.length != 0){
         HTML = ``
         data.messages.forEach(function(message){
           console.log(message.content)
@@ -189,6 +190,7 @@ $(function(){
     })
   }
   var c_reloadMessages = function(){
+    console.log("index_c")
     url = "/api/messages/index_c"
     user_id = $(document).find(".new_message_user_id").val()
     if (user_id == 0){
@@ -226,16 +228,20 @@ $(function(){
     })
   }
   //繰り返し処理
-    // \/はエスケープ処理をしたスラッシュ
-  if (document.location.href.match(/\/mypage\/match/)){
-    scroll_height = $(document).find(".top_messages").get(0).scrollHeight
-    $(document).find(".top_messages").scrollTop(scroll_height)
-    setInterval(confirmBool, 7000)
+    // \/はエスケープ処理をしたスラッシュ関数
+  function reload(){
+      // userの繰り返し関数
+    if (document.location.href.match(/\/cmypage\/match_approvement/)){
+      
+    }
+    else if (document.location.href.match(/\/mypage\/match/)){
+      confirmBool()
+    }
+      // c_userの繰り返し関数
+    else if (document.location.href.match(/\/cmypage\/match/)){
+      c_reloadMessages()
+    }
   }
-    // c_userの繰り返し
-  if (document.location.href.match(/\/cmypage\/match/)){
-    scroll_height = $(document).find(".top_messages").get(0).scrollHeight
-    $(document).find(".top_messages").scrollTop(scroll_height)
-    setInterval(c_reloadMessages, 7000)
-  }
+  //繰り返し処理を繰り返す(ページ遷移したときに読み込まれるようにするため)
+  setInterval(reload, 7000)
 })

@@ -4,18 +4,12 @@
       = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), "#", class: "no_image_link"
       = link_to "#", class: "center_linkBox" do
         %h2.name
-          タクミ
+          = current_c_user.username
         %h2.region
           東京
         %i.fas.fa-chevron-right
       .bottomBox
-        タクミさんのキューピット
         %br/
-        = link_to "#" do
-          ケルビム
-        %br/
-        = link_to "#" do
-          ミカエル
   %ul.side_main
     %li.nav_list
       = link_to search_cmypage_index_path, class: "nav_link", id: "c_user_nav_link_1" do

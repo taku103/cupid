@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SkyWay JS SDK Tutorial</title>
+    <%# <link rel="stylesheet" href="/app/assets/stylesheets/skyway.scss"> %>
+</head>
+<div class="pure-g">
+
+    <!-- Video area -->
+    <div class="pure-u-2-3" id="video-container">
+        <video id="their-video" autoplay></video>
+        <video id="my-video" muted="true" autoplay></video>
+    </div>
+
+    <!-- Steps -->
+    <div class="pure-u-1-3">
+        <h2>SkyWay Video Chat</h2>
+
+        <p>Your id: <span id="my-id">...</span></p>
+        <p>Share this id with others so they can call you.</p>
+        <h3>Make a call</h3>
+        <form id="make-call" class="pure-form">
+            <input type="text" placeholder="Call user id..." id="callto-id">
+            <button href="#" class="pure-button pure-button-success" type="submit">Call</button>
+        </form>
+        <form id="end-call" class="pure-form">
+            <p>Currently in call with <span id="their-id">...</span></p>
+            <button href="#" class="pure-button pure-button-success" type="submit">End Call</button>
+        </form>
+        <div class="skyway_code_textBox">
+            <%= @skyway_code %>
+        </div>
+        <div class="c_user_id">
+            <% if @c_user_id != 0 %>
+                <%= @c_user_id %>
+            <% end %>
+        </div>
+        <div class="user_id">
+            <% if @user_id != 0 %>
+                <%= @user_id %>
+            <% end %>
+        </div>
+        <button class="make_a_call">
+            電話チェック
+        </button>
+        <a href="/mypage/match" class="match_link">マッチング画面に戻る</a>
+    </div>
+</div>
+</html>

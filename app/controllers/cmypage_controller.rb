@@ -2,11 +2,39 @@ class CmypageController < ApplicationController
   before_action :authenticate_c_user!
   # before_action :configure_permitted_parameters, if: :devise_controller?
   def follow
-    # まだ
+    @follow = Follow.new
+    user_ids = []
+    follows = Follow.where(c_user_id: current_c_user.id, bool: [1, 2])
+    follows.each do |follow|
+      if user_ids.include?(follow.user_id)
+
+      else
+        user_ids << follow.user_id
+      end
+    end
+    @users = []
+    user_ids.each do |user_id|
+      user = User.find(user_id)
+      @users << user
+    end
   end
 
   def follower
-    
+    @follow = Follow.new
+    user_ids = []
+    follows = Follow.where(c_user_id: current_c_user.id, bool: [0, 1])
+    follows.each do |follow|
+      if user_ids.include?(follow.user_id)
+
+      else
+        user_ids << follow.user_id
+      end
+    end
+    @users = []
+    user_ids.each do |user_id|
+      user = User.find(user_id)
+      @users << user
+    end
   end
 
   def create_follow
@@ -172,7 +200,31 @@ class CmypageController < ApplicationController
   end
 
   def match_approvement
-    
+    @match_users = []
+    matches = Match.where(c_user_id: current_c_user.id, step: 0)
+    matches.each do |match|
+      items = {}
+      match.match_users.each_with_index do |match_user, i|
+        user_id = match_user.user_id
+        step = match_user.step
+        user = User.find(user_id)
+        if i == 0
+          items[:user1] = user
+          items[:step1] = step
+        elsif i == 1
+          items[:user2] = user
+          items[:step2] = step
+        end
+      end
+      memo = match.memo
+      
+      items[:memo] = memo
+      if @match_users.include?(items)
+      else
+        @match_users << items
+      end
+    end
+
   end
 
   def confirm_match
@@ -207,6 +259,35 @@ class CmypageController < ApplicationController
     @select_id = params[:select_id].to_i
     @user = User.find(user_id)
   end
+
+  def show_detail
+    user_id = params[:user_id]
+    @user = User.find(user_id)
+  end
+
+  def skyway
+    @user_id = params[:user_id].to_i
+  end
+
+  def create_skyway
+    user_id = params[:user_id]
+    skyway_code = params[:skyway_code]
+    skyways = Skyway.where(user_c_user_id: current_c_user.id, bool: 0)
+    if skyways.length != 0
+      @bool = 1
+      @skyway = skyways.last
+      skyways.each do |skyway|
+        skyway.destroy
+      end
+    elsif skyways.length == 0
+      skyway = Skyway.create(user_c_user_id: user_id, bool: 1, code: skyway_code)
+      @bool = 0
+    end
+  end
+  def end_call
+    redirect_to action: :search
+  end
+
   private
   def follow_params
     params.require(:follow).permit(:user_id)

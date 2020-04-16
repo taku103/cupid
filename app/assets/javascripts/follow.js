@@ -16,21 +16,23 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      alert("フォロー成功")
-      $(document).find(`.followBox#${data.c_user_id}`).attr("class", "followedBox")
-      $(document).find(`.followedBox#${data.c_user_id}`).find(".followBtn").attr("class", "followedBtn")
+      // alert("フォロー成功")
+      console.log($(document).find(`#${data.c_user_id}.followBox`))
+      $(document).find(`#${data.c_user_id}.followBox`).attr("class", "followedBox")
+      $(document).find(`#${data.c_user_id}.followedBox`).find(".followBtn").attr("class", "followedBtn")
       if(data.bool == 0){
-        $(document).find(`.followedBox#${data.c_user_id}`).find(".followedBtn").attr("value", "＋フォロー")
+        $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
-        $(document).find(`.followedBox#${data.c_user_id}`).find(".followedBtn").attr("value", "フォロバ")
+        $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").attr("value", "フォロバ")
       }
-      $(document).find(`.followedBox#${data.c_user_id}`).children(".follow_form").attr("action", "/mypage/destroy_follow")
+      $(document).find(`#${data.c_user_id}.followedBox`).children(".follow_form").attr("action", "/mypage/destroy_follow")
     })
     .fail(function(){
       alert("フォロー失敗")
     })
   })
-  $(document).on("click", ".followedBtn", function(){
+  $(document).on("click", ".followedBtn", function(e){
+    e.preventDefault()
     let followed_form = $(this).parent()[0]
     console.log(followed_form)
     url = $(followed_form).attr("action")
@@ -47,21 +49,22 @@ $(function(){
     .done(function(data){
       alert("フォロー解除成功")
       if(data.bool == 0){
-        $(document).find(`.followedBox#${data.c_user_id}`).find(".followedBtn").attr("value", "＋フォロー")
+        $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
-        $(document).find(`.followedBox#${data.c_user_id}`).find(".followedBtn").removeAttr("value")
-        $(document).find(`.followedBox#${data.c_user_id}`).find(".followedBtn").attr("value", "フォロバ")
+        $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").removeAttr("value")
+        $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").attr("value", "フォロバ")
       }
-      $(document).find(`.followedBox#${data.c_user_id}`).attr("class", "followBox")
-      $(document).find(`.followBox#${data.c_user_id}`).find(".followedBtn").attr("class", "followBtn")
+      $(document).find(`#${data.c_user_id}.followedBox`).attr("class", "followBox")
+      $(document).find(`#${data.c_user_id}.followBox`).find(".followedBtn").attr("class", "followBtn")
       
-      $(document).find(`.followBox#${data.c_user_id}`).children(".follow_form").attr("action", "/mypage/create_follow")
+      $(document).find(`#${data.c_user_id}.followBox`).children(".follow_form").attr("action", "/mypage/create_follow")
     })
     .fail(function(){
       alert("フォロー解除失敗")
     })
   })
-  $(document).on("click", ".c_followBtn", function(){
+  $(document).on("click", ".c_followBtn", function(e){
+    e.preventDefault()
     follow_form = $(this).parent()[0]
     url = $(follow_form).attr("action")
     formData = new FormData(follow_form)
@@ -75,20 +78,21 @@ $(function(){
     })
     .done(function(data){
       console.log("フォロー成功")
-      $(document).find(`.followBox#${data.user_id}`).attr("class", "followedBox")
-      $(document).find(`.followedBox#${data.user_id}`).find(".c_followBtn").attr("class", "c_followedBtn")
+      $(document).find(`#${data.user_id}.followBox`).attr("class", "followedBox")
+      $(document).find(`#${data.user_id}.followedBox`).find(".c_followBtn").attr("class", "c_followedBtn")
       if(data.bool == 2){
-        $(document).find(`.followedBox#${data.user_id}`).find(".c_followedBtn").attr("value", "＋フォロー")
+        $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
-        $(document).find(`.followedBox#${data.user_id}`).find(".c_followedBtn").attr("value", "フォロバ")
+        $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").attr("value", "フォロバ")
       }
-      $(document).find(`.followedBox#${data.user_id}`).children(".c_follow_form").attr("action", "/cmypage/destroy_follow")
+      $(document).find(`#${data.user_id}.followedBox`).children(".c_follow_form").attr("action", "/cmypage/destroy_follow")
     })
     .fail(function(){
       console.log("フォロー失敗")
     })
   })
-  $(document).on("click", ".c_followedBtn", function(){
+  $(document).on("click", ".c_followedBtn", function(e){
+    e.preventDefault()
     let followed_form = $(this).parent()[0]
     url = $(followed_form).attr("action")
     formData = new FormData(followed_form)
@@ -103,15 +107,15 @@ $(function(){
     .done(function(data){
       alert("削除成功")
       if(data.bool == 2){
-        $(document).find(`.followedBox#${data.user_id}`).find(".c_followedBtn").attr("value", "＋フォロー")
+        $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
-        $(document).find(`.followedBox#${data.user_id}`).find(".c_followedBtn").removeAttr("value")
-        $(document).find(`.followedBox#${data.user_id}`).find(".c_followedBtn").attr("value", "フォロバ")
+        $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").removeAttr("value")
+        $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").attr("value", "フォロバ")
       }
-      $(document).find(`.followedBox#${data.user_id}`).attr("class", "followBox")
-      $(document).find(`.followBox#${data.user_id}`).find(".c_followedBtn").attr("class", "c_followBtn")
+      $(document).find(`#${data.user_id}.followedBox`).attr("class", "followBox")
+      $(document).find(`#${data.user_id}.followBox`).find(".c_followedBtn").attr("class", "c_followBtn")
       
-      $(document).find(`.followBox#${data.user_id}`).children(".c_follow_form").attr("action", "/cmypage/create_follow")
+      $(document).find(`#${data.user_id}.followBox`).children(".c_follow_form").attr("action", "/cmypage/create_follow")
     })
     .fail(function(){
       alert("削除失敗")
