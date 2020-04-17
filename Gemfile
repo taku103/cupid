@@ -67,3 +67,6 @@ gem 'jquery-rails'
 gem 'pry-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
+group :production do
+  gem 'unicorn', '5.4.1'
+end
