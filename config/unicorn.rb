@@ -24,6 +24,8 @@ timeout 60
 
 #以下は応用的な設定なので説明は割愛
 
+config.public_file_server.enabled = true
+
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
 
