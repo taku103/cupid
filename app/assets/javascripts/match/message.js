@@ -15,8 +15,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      console.log("成功")
-      console.log(data)
       if (data.message.content !== ''){
         data.message.content = data.message.content.replace(/\n/g,'<br>')
       }
@@ -43,7 +41,6 @@ $(function(){
   })
   $(document).on("click", ".c_message_submitBtn", function(e){
     e.preventDefault()
-    console.log("message送信")
     form_message = $(this).parent().parent().parent()
     url = form_message.attr('action')
     data = form_message[0]
@@ -57,7 +54,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      console.log("通信成功")
       HTML = ``
       data.message.content = data.message.content.replace(/\n/g, '<br>')
       HTML = HTML + ShowMyMessageHTML(data.message)

@@ -2,7 +2,6 @@ $(function(){
   $(document).on("click", ".image_link_create", function(){
     create_str = $(this).attr('id')
     create_id = create_str.replace(/[^0-9^\.]/g,"")
-    console.log(create_id)
     url = "/cmypage/show_user"
     
     $.ajax({
@@ -12,8 +11,6 @@ $(function(){
       dataType: "json"
     })
     .done(function(data){
-      console.log(data)
-      console.log(data.users)
       let create_id = data.create_id
       let document_height = $(document).height()
       // 7行めに<img class="image" src="${data.users[0].image}">
@@ -83,7 +80,6 @@ $(function(){
 
   // マッチング作成
   $(document).on("click", ".submitBtn#create_matchBtn", function(){
-    console.log("マッチング作成イベント発生")
     url = "/cmypage/create_match"
     str_id_1 = $(document).find(".number_id_1").text()
     str_id_2 = $(document).find(".number_id_2").text()

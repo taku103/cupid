@@ -3,8 +3,6 @@ $(function(){
     e.preventDefault()
     //[0]を付け足すことでjQueryオブジェクトからHTMLFormElementに変換している。ちなみにfollowBtnはHTMLFormElement。普通のHTMLFormの要素が入れられており、この要素に変換しないと、FormDataが送れない。
     follow_form = $(this).parent()[0]
-    console.log(this)
-    console.log(follow_form)
     url = $(follow_form).attr("action")
     formData = new FormData(follow_form)
     $.ajax({
@@ -16,8 +14,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      // alert("フォロー成功")
-      console.log($(document).find(`#${data.c_user_id}.followBox`))
       $(document).find(`#${data.c_user_id}.followBox`).attr("class", "followedBox")
       $(document).find(`#${data.c_user_id}.followedBox`).find(".followBtn").attr("class", "followedBtn")
       if(data.bool == 0){
@@ -47,7 +43,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      alert("フォロー解除成功")
       if(data.bool == 0){
         $(document).find(`#${data.c_user_id}.followedBox`).find(".followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
@@ -77,7 +72,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      console.log("フォロー成功")
       $(document).find(`#${data.user_id}.followBox`).attr("class", "followedBox")
       $(document).find(`#${data.user_id}.followedBox`).find(".c_followBtn").attr("class", "c_followedBtn")
       if(data.bool == 2){
@@ -105,7 +99,6 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      alert("削除成功")
       if(data.bool == 2){
         $(document).find(`#${data.user_id}.followedBox`).find(".c_followedBtn").attr("value", "＋フォロー")
       }else if(data.bool == 1){
