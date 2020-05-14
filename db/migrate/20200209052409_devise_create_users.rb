@@ -3,9 +3,15 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.2]
   def change 
     create_table :users do |t|
-      t.string :nickname, null: false
+      t.string :nickname
       t.string :username, unique: true
       t.text :profile
+
+      ## facebook_authentication
+      t.string :uid
+      t.string :provider
+      t.string :name
+      t.string :image
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

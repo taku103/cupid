@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     sessions:       'users/sessions',
     passwords:      'users/passwords',
     registrations:   'users/registrations',
-    omniauthcallbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   root "informations#index"
   resources :mypage do

@@ -71,7 +71,7 @@ $(document).on('click', '#make-call', function(e){
   let url = "/mypage/create_skyway"
   let c_user_id = $(document).find(".c_user_id").text()
   console.log(c_user_id)
-  c_user_id = parseInt(10, c_user_id);
+  c_user_id = parseInt(c_user_id);
   console.log(c_user_id)
   let skyway_code = $(document).find("#my-id").text()
   let data = { c_user_id: c_user_id, skyway_code: skyway_code }
@@ -102,8 +102,9 @@ $(document).on('click', '#c_make-call', function(e){
   // const call = peer.call($('#callto-id').val(), localStream);
   let url = "/cmypage/create_skyway"
   let user_id = $(document).find(".user_id").text()
+  console.log("c_user_idの検査中")
   console.log(user_id)
-  user_id = parseInt(user_id)
+  user_id = parseInt(user_id, 10)
   console.log(user_id)
   let skyway_code = $(document).find("#my-id").text()
   let data = { user_id: user_id, skyway_code: skyway_code }
