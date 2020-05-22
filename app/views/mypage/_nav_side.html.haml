@@ -1,10 +1,13 @@
 .nav_side
   .side_header
     .mypage
-      = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), "#", class: "no_image_link"
-      = link_to "#", class: "center_linkBox" do
+      = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), profile_mypage_index_path, class: "no_image_link"
+      = link_to profile_mypage_index_path, class: "center_linkBox" do
         %h2.name
-          = current_user.username
+          - if current_user.name.present?
+            = current_user.name
+          - else
+            = current_user.username
         %h2.region
           東京
         %i.fas.fa-chevron-right
@@ -28,7 +31,6 @@
       = link_to find_mypage_index_path, class: "nav_link", id: "user_nav_link_4" do
         コミュニティを探す
         %i.fas.fa-chevron-right
-
   %ul.side_footer
     %li.footer_list
       = link_to "#", class: "nav_link" do

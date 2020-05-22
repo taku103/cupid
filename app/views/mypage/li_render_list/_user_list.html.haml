@@ -46,15 +46,3 @@
           = form.hidden_field :c_user_id, value: c_user.id
           = form.hidden_field :user_id, value: current_user.id
           = form.submit "＋フォロー", class: "followBtn"
-      
-        -# - c_user.follows.each do |follow|
-        -#   - if follow.user_id == current_user.id
-        -#     = form.submit "＋フォロバ", class: "followBtn"
-        -#     - break
-        
-
-      -# .followBtn
-      -#   ＋フォロー
-        
-        -# %input{c_user: c_user, type: "hidden", value: c_user.id, class: "c_follow_hidden"}
-        -# %input{user: current_user, type: "hidden", value: current_user.id, class: "follow_hidden"}

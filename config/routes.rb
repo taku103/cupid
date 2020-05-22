@@ -66,6 +66,21 @@ Rails.application.routes.draw do
     collection do
       post "end_call"
     end
+    collection do
+      get "profile"
+    end
+    collection do
+      post "update_profile"
+    end
+    collection do 
+      post "add_main_image"
+    end
+    collection do
+      post "add_sub_image"
+    end
+    collection do 
+      get "delete_image"
+    end
   end
   resources :cmypage do
     collection do

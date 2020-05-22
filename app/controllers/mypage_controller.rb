@@ -29,6 +29,65 @@ class MypageController < ApplicationController
     end
   end
 
+  def profile
+    @user = User.new
+    @image = Image.new
+    @user_info = User.find(current_user.id)
+    all_images = Image.where(user_id: current_user.id)
+    @main_image = all_images.find_by(bool: 0)
+    images = all_images.where(bool: 1)
+    @sub_images =[]
+    images.each do |image|
+      @sub_images << image
+    end
+  end
+
+  def update_profile
+    user = User.find(current_user.id)
+    if user.update(update_profile_params)
+      redirect_to search_mypage_index_path
+    end
+  end
+
+  def add_main_image
+    user_images = Image.where(user_id: current_user.id, bool: 0)
+    user_image = user_images.first
+    user_images.each do |image|
+      if image != user_image
+        image.destroy
+      end
+    end
+    if user_image.present?
+      if user_image.update!(add_image_params)
+        redirect_to profile_mypage_index_path
+      end
+    else
+      image = Image.new(add_image_params)
+      # image = Image.new(image: add_image_params, bool: 0, user_id: current_user.id)
+      image.bool = 0
+      if image.save!
+        redirect_to profile_mypage_index_path
+      end
+    end
+  end
+
+  def add_sub_image
+    if Image.new_multiple_image(add_sub_image_params)
+      redirect_to profile_mypage_index_path
+    end
+  end
+
+  def delete_image
+    @image_id = params[:id].to_i
+    image = Image.find(@image_id)
+    @bool = image.bool
+    if image.destroy!
+      respond_to do |format|
+        format.json
+      end
+    end
+  end
+
   def follower
     @follow = Follow.new
     @c_users = []
@@ -93,15 +152,6 @@ class MypageController < ApplicationController
     respond_to do |format|
       format.json
     end
-    # redirect_to action: :search
-
-    # if @follows.destroy
-    #   respond_to do |format|
-    #     format.json
-    #   end
-    # elsif
-    #   binding.pry
-    # end
   end
 
   def match
@@ -154,10 +204,7 @@ class MypageController < ApplicationController
   end
 
   def approve_match
-    # match_array = []
     match = Match.find_by(approve_match_params)
-    # match = matches&.first
-    # binding.pry
     match_users = match.match_users
     match_user = nil
     match_users.each do |m_u|
@@ -288,14 +335,13 @@ class MypageController < ApplicationController
     @c_users = CUser.all.limit(16)
     @follow = Follow.new
     i = 0
-    # eachでc_userをrenderするのはsearch.html.hamlに書く(そのあとmodelに書いてメソッドとして呼び出す)
-    
-    # @c_users.each do |c_user|
-    #   
-    # end
-    # def attach_follow_function
-    #   c_user.follows
-    # end
+    @items = []
+    @c_users.each do |c_user|
+      image = Image.find_by(user_id: c_user.id, bool: 3)
+      item = {image: image, c_user_id: c_user.id}
+      @items << item
+    end
+
   end
 
   def skyway
@@ -367,5 +413,14 @@ class MypageController < ApplicationController
   end
   def create_message_params
     params.require(:message).permit(:bool, :content, :image, :match_c_user_id, :user_id)
+  end
+  def update_profile_params
+    params.require(:user).permit(:profile, :username, :nickname)
+  end
+  def add_image_params
+    params.require(:image).permit(:image).merge(user_id: current_user.id)
+  end
+  def add_sub_image_params
+    params.require(:image).permit(image: []).merge(user_id: current_user.id)
   end
 end

@@ -1,0 +1,49 @@
+.profile_container
+  .top_image_container
+    .image_deleteBtn
+      %i.fas.fa-trash-alt
+      画像を削除
+    .main_imageBtn
+      .main_imageBox
+        - if @main_image.present? && @main_image.image.present?
+          = image_tag @main_image.image_url, class: 'top_image', id: "image#{@main_image.id}"
+        - else
+          = image_tag 'member_photo_noimage_thumb.png', class: 'top_image', id: "image0"
+    .image_container
+      - if @main_image.present?
+        = image_tag @main_image.image_url, class: 'slide_image', id: "image#{@main_image.id}"
+      - else
+        .add_main_imageBtn
+          = image_tag 'member_photo_noimage_thumb.png', class: 'slide_image', id: "image0"
+          .text
+            ＋メイン写真
+      - if @sub_images.present?
+        - @sub_images.each do |image|
+          = image_tag image.image_url, class: 'slide_image', id: "image#{image.id}"
+      .add_sub_imageBtn
+        = image_tag 'member_photo_noimage_thumb.png', class: 'no_slide_image'
+        .text
+          ＋写真の追加
+  .profile_elements
+    %h2.subtitle
+      プロフィール
+    = form_with(model: @user, url: update_profile_mypage_index_path, local: true, class: "update_profile_form") do |form|
+      .element#0
+        facebookの名前(他人には公開されません)：
+        .flexBox
+          .text
+            = @user_info.name
+      .element#1
+        ニックネーム：
+        .flexBox
+          = form.text_field :nickname, placeholder: "ニックネームを入力して下さい", value: @user_info.nickname, class: "update_text"
+      .element#2
+        ユーザーネーム：
+        .flexBox
+          = form.text_field :username, placeholder: "ユーザーネームを入力して下さい", value: @user_info.username, class: "update_text"
+      .element#3
+        プロフィール：
+        .flexBox
+          = form.text_area :profile, placeholder: "自己紹介文を入力して下さい", value: @user_info.profile, class: "update_textarea"
+      = form.submit "プロフィールを更新する", class: "submitBtn"
+  .add_container
