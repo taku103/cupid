@@ -1,7 +1,7 @@
 class CmypageController < ApplicationController
   before_action :authenticate_c_user!
   # before_action :configure_permitted_parameters, if: :devise_controller?
-
+  
   def profile
     @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     @c_user = CUser.new
