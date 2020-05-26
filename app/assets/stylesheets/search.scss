@@ -471,7 +471,6 @@
         position: relative;
         width: 550px;
         .detailBox{
-          background-color: red;
           position: absolute;
           top: 100px;
           left: 200px;
@@ -505,6 +504,7 @@
             }
           }
           .main_detail{
+            width: 500px;
             .bottom_sidebar{
 
             }

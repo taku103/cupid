@@ -189,6 +189,9 @@ $(function(){
           </div>
             <div class="profile_container">
               <div class="c_user_id" id="show_details">
+              <div class="text">
+                キューピットID：
+              </div>
                 ${c_user.id}
               </div>
               <div class="name">
@@ -295,6 +298,9 @@ $(function(){
           </div>
             <div class="profile_container">
               <div class="user_id" id="show_details">
+                <div class="text">
+                  会員ID：
+                </div>
                 ${user.id}
               </div>
               <div class="name">
