@@ -4,7 +4,7 @@
       - @matches_items.each do |m_items|
         %li.c_user_list
           .imageBox
-            = image_tag 'member_photo_noimage_thumb.png', class: 'match_c_user_imageBtn', id: m_items[:c_user].id
+            = image_tag m_items[:c_image].image_url, class: 'match_c_user_imageBtn', id: m_items[:c_user].id
               
   .middle_user_container
     %ul.user_listsBox

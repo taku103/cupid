@@ -6,6 +6,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :nickname
       t.string :username, unique: true
       t.text :profile
+      # 0が男、1が女
+      t.integer :sex
+      t.integer :age
+      # コメント（こんなことを指導してもらいたい、身に付けたい）
+      t.string :comment
 
       ## facebook_authentication
       t.string :uid

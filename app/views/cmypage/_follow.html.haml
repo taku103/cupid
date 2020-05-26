@@ -1,47 +1,31 @@
 .c_follower_container
   .search-result-container
-    %section.head-container
-      %ul.lists
-        %li.list
-          = link_to '#', class: "list_link" do
-            ・【2月29日】あなたに紹介したい人が２人います
-        %li.list
-          = link_to '#', class: "list_link" do
-            ・【3月1日】新しいメッセージが１件あります。
-    .main-searchBox
-      .leftBox
-        = link_to "#", class: "searchBtn" do
-          %i.fas.fa-search
-          -# \f002
-          検索条件設定
-      .centerBox
-        1423人中1~16人表示中
-      .rightBox
-        = link_to "#", class: "BlockBtn" do
-          %i.fas.fa-th
+    %h2.subtitle
+      フォロー中
     %main.main_container
-      - if @users.length == 0 then
+      - if @items.length == 0 then
         .textBox
           データが見つかりませんでした。
       - for k in 0..3 do
         %ul.line_block
-          - @users.each_with_index do |user, i|
+          - @items.each_with_index do |item, i|
             - if k == 0 then
-              = render partial: "cmypage/li_render_list/c_user_list", locals: {user: user, i: i, k: k}
+              = render partial: "cmypage/li_render_list/c_user_list", locals: { image: item[:image], user: item[:user], i: i, k: k}
               - if (i+1)%4 == 0 then
                 - break
             - elsif k == 1 then
               - if i >= 4 && i <= 7
-                = render partial: "cmypage/li_render_list/c_user_list", locals: {user: user, i: i,k: k}
+                = render partial: "cmypage/li_render_list/c_user_list", locals:  { image: item[:image], user: item[:user], i: i, k: k}
                 - if (i+1)%4 == 0 then
                   - break
             - elsif k == 2 then
               - if i >= 8 && i <= 11
-                = render partial: "cmypage/li_render_list/c_user_list", locals: {user: user, i: i,k: k}
+                = render partial: "cmypage/li_render_list/c_user_list", locals:  { image: item[:image], user: item[:user], i: i, k: k}
                 - if (i+1)%4 == 0 then
                   - break
             - elsif k == 3 then
               - if i >= 12 && i <= 15
-                = render partial: "cmypage/li_render_list/c_user_list", locals: {user: user, i: i,k: k}
+                = render partial: "cmypage/li_render_list/c_user_list", locals:  { image: item[:image], user: item[:user], i: i, k: k}
                 - if (i+1)%4 == 0 then
                   - break
+    .user_information

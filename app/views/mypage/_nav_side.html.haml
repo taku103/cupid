@@ -1,7 +1,10 @@
 .nav_side
   .side_header
     .mypage
-      = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), profile_mypage_index_path, class: "no_image_link"
+      - if @my_image.present? && @my_image.image.present?
+        = link_to image_tag(@my_image.image_url, width: "60px", class: "no_image"), profile_mypage_index_path, class: "no_image_link"
+      - else
+        = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), profile_mypage_index_path, class: "no_image_link"
       = link_to profile_mypage_index_path, class: "center_linkBox" do
         %h2.name
           - if current_user.name.present?
@@ -26,10 +29,6 @@
     %li.nav_list
       = link_to follow_mypage_index_path, class: "nav_link", id: "user_nav_link_3" do
         フォローリスト
-        %i.fas.fa-chevron-right
-    %li.nav_list
-      = link_to find_mypage_index_path, class: "nav_link", id: "user_nav_link_4" do
-        コミュニティを探す
         %i.fas.fa-chevron-right
   %ul.side_footer
     %li.footer_list

@@ -1,8 +1,11 @@
 .nav_side
   .side_header
     .mypage
-      = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), "#", class: "no_image_link"
-      = link_to "#", class: "center_linkBox" do
+      - if @my_image.present? && @my_image.image.present?
+        = link_to image_tag(@my_image.image_url, width: "60px", class: "no_image"), profile_cmypage_index_path, class: "no_image_link"
+      - else
+        = link_to image_tag('member_photo_noimage_thumb.png', width: "60px", class: "no_image"), profile_cmypage_index_path, class: "no_image_link"
+      = link_to profile_cmypage_index_path, class: "center_linkBox" do
         %h2.name
           = current_c_user.username
         %h2.region
@@ -22,10 +25,6 @@
     %li.nav_list
       = link_to follower_cmypage_index_path, class: "nav_link", id: "c_user_nav_link_3" do
         フォロワーリスト
-        %i.fas.fa-chevron-right
-    %li.nav_list
-      = link_to find_cmypage_index_path, class: "nav_link", id: "c_user_nav_link_4" do
-        コミュニティを探す
         %i.fas.fa-chevron-right
 
   %ul.side_footer

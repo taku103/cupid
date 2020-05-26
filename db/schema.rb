@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 2020_05_19_142826) do
     t.string "nickname", null: false
     t.string "username"
     t.text "profile"
+    t.integer "sex"
+    t.integer "age"
+    t.string "speciality"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -87,6 +90,9 @@ ActiveRecord::Schema.define(version: 2020_05_19_142826) do
     t.string "nickname"
     t.string "username"
     t.text "profile"
+    t.integer "sex"
+    t.integer "age"
+    t.string "comment"
     t.string "uid"
     t.string "provider"
     t.string "name"

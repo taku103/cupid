@@ -1,25 +1,28 @@
 %li.listBox
   .imageBox
     .c_image_link{id: c_user.id}
-      = image_tag "member_photo_noimage_thumb.png", class: "image"
+      - if image.present?
+        = image_tag image.image_url, class: "image"
+      - else
+        = image_tag "member_photo_noimage_thumb.png", class: "image"
   .bottomBox
     .nameBox
       = c_user.username
     .love_sustainableBox
-      -# <i class="fas fa-heart"></i>\f004
       %i.fas.fa-heart
-      80.0%
+      = c_user.matches.where(step: 1).length
     .followerBox
-      -# <i class="fas fa-user-graduate"></i>
       %i.fas.fa-user-graduate
       -# 生徒数なら@matches.length * 2、フォロワーならFollows.where(c_user: current_c_user) == @followerに.lengthだが、今回はfollowerにしようと思う。
-      137人
+      = c_user.follows.where(bool: 1).length
+      人
     .specialtyBox
       .text
         %i.fas.fa-star
         得意分野
         %i.fas.fa-star
-      愛知県長久手町でのデートプラン
+      - if c_user.speciality != nil
+        = c_user.speciality.truncate(21)
     - follow_status = c_user.follows.find_by(user_id: current_user.id)
     - if follow_status.present?
       - if follow_status.bool == 0 then

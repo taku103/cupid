@@ -19,11 +19,11 @@ $(function(){
       let ulHTML = `</ul>`
       let divHTML = `</div>`
       let HTML = backHTML
-      if(data.users.length !== 0){
+      if(data.items.length !== 0){
         HTML = HTML + selectHTML
-        data.users.forEach(function(user, index){
+        data.items.forEach(function(item, index){
           
-          forUserHTML = buildForUserHTML(user, create_id)
+          forUserHTML = buildForUserHTML(item, create_id)
           HTML = HTML + forUserHTML
           
           if(index == 3){
@@ -68,6 +68,7 @@ $(function(){
       console.log(data)
       $(document).find(`.name#${data.select_id}`).text(data.user.nickname)
       $(document).find(`.number_id_${data.select_id}`).text(`会員id: ${data.user.id}`)
+      $(document).find(`#imageBox_create_${data.select_id}`).children(".image").attr("src", data.image.image.url)
     })
     .fail(function(){
       alert("選択失敗")
@@ -126,8 +127,13 @@ $(function(){
       MessageHTML = ``
       UserHTML = ``
       
-      data.users.forEach(function(user){
-        UserHTML = UserHTML + ShowImageHTML(user)
+      data.items.forEach(function(item){
+        if (item.image != null){
+          UserHTML = UserHTML + ShowImageHTML(item)
+        }
+        else{
+          UserHTML = UserHTML + ShowNoImageHTML(item)
+        }
       })
       $(document).find(".user_list").remove()
       $(document).find(".user_listsBox").prepend(UserHTML)
@@ -139,7 +145,7 @@ $(function(){
           MessageHTML = MessageHTML + ShowMessage0HTML(message)
         }
         else if (message.bool == 2){
-          MessageHTML = MessageHTML + ShowMessage2HTML(message, data.c_user)
+          MessageHTML = MessageHTML + ShowMessage2HTML(message, data.c_user, data.c_image)
         }
       })
       $(document).find(".top_information").text(`キューピット  ${data.c_user.nickname}`)
@@ -176,7 +182,7 @@ $(function(){
       data.messages.forEach(function(message){
         message.content = message.content.replace(/\n/, '<br>')
         if (message.user_id == data.user.id){
-          HTML = HTML + ShowOtherMessage1HTML(message, data.user)
+          HTML = HTML + ShowOtherMessage1HTML(message, data.user, data.image)
         }
         else if(message.user_id != data.user_id){
           HTML = HTML + ShowMyMessage1HTML(message)
@@ -206,23 +212,23 @@ $(function(){
     })
     .done(function(data){
       UserImageHTML = ``
-      data.users.forEach(function(u){
-        UserImageHTML = UserImageHTML + ShowUserImageHTML(u)
+      data.other_items.forEach(function(i){
+        UserImageHTML = UserImageHTML + ShowUserImageHTML(i)
       })
-      $(document).find(".new_message_user_id").val(data.user.id)
+      $(document).find(".new_message_user_id").val(data.item.user.id)
       $(document).find(".middle_user_container").children(".user_listsBox").empty()
       $(document).find(".middle_user_container").children(".user_listsBox").append(UserImageHTML)
       MessageHTML = ``
       data.messages.forEach(function(message){
         message.content = message.content.replace(/\n/g, '<br>')
         if (message.bool == 0){
-          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.user)
+          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.item)
         }
         else if (message.bool == 2){
           MessageHTML = MessageHTML + ShowSendMessageHTML(message)
         }
       })
-      $(document).find(".top_information").text(`ユーザー  ${data.user.nickname}`)
+      $(document).find(".top_information").text(`ユーザー  ${data.item.user.nickname}`)
       $(document).find(".top_messages").empty()
       $(document).find(".top_messages").append(MessageHTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
@@ -243,19 +249,19 @@ $(function(){
       type: "GET"
     })
     .done(function(data){
-      $(document).find(".new_message_user_id").val(data.user.id)
+      $(document).find(".new_message_user_id").val(data.item.user.id)
       $(document).find(".top_messages").empty()
       MessageHTML = ``
       data.messages.forEach(function(message){
         message.content = message.content.replace(/\n/g, '<br>')
         if (message.bool == 0){
-          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.user)
+          MessageHTML = MessageHTML + ShowGetMessageHTML(message, data.item)
         }
         else if (message.bool == 2){
           MessageHTML = MessageHTML + ShowSendMessageHTML(message)
         }
       })
-      $(document).find(".top_information").text(`ユーザー  ${data.user.nickname}`)
+      $(document).find(".top_information").text(`ユーザー  ${data.item.user.nickname}`)
       $(document).find(".top_messages").append(MessageHTML)
       scroll_height = $(document).find(".top_messages").get(0).scrollHeight
       $(document).find(".top_messages").scrollTop(scroll_height)
@@ -271,18 +277,18 @@ $(function(){
   function ShowUserSelects(html){
     $(document).find(".show_select_containerBox").append(html)
   }
-  function buildForUserHTML(user, create_id){
+  function buildForUserHTML(item, create_id){
     forUserHTML =
     `
     <li class="listBox">
       <div class="imageBox">
         <div class="image_link">
-
+        <img src="${item.image.image.url}" class="image">
         </div>
       </div>
       <div class="bottomBox">
         <div class="nameBox">
-          ${user.nickname}
+          ${item.user.nickname}
         </div>
         <div class="love_sustainableBox">
           <i class="fas fa-heart">
@@ -304,7 +310,7 @@ $(function(){
           </div>
           愛知県長久手町でのデートプラン
         </div>
-        <div class="selectBox" id="${user.id}">
+        <div class="selectBox" id="${item.user.id}">
           <div class="selectBtn" id="${create_id}">
             選択
           </div>
@@ -316,12 +322,24 @@ $(function(){
   }
 
     // show_messageのuser_image表示関数
-  function ShowImageHTML(user){
+  function ShowImageHTML(item){
     HTML = 
     `
     <li class="user_list">
-      <div class="match_user_imageBox" id=${user.id}>
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn" id=${user.id}>
+      <div class="match_user_imageBox" id=${item.user.id}>
+        <img src="${item.image.image.url}" class="match_user_imageBtn" id=${item.user.id}>
+      </div>
+    </li>
+    `
+
+    return HTML
+  }
+  function ShowNoImageHTML(item){
+    HTML = 
+    `
+    <li class="user_list">
+      <div class="match_user_imageBox" id=${item.user.id}>
+        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn" id=${item.user.id}>
       </div>
     </li>
     `
@@ -340,12 +358,18 @@ $(function(){
     `
     return HTML
   }
-  function ShowMessage2HTML(message, c_user){
+  function ShowMessage2HTML(message, c_user, c_image){
     HTML = `
     <div class="partsBox" id="${message.id}">
-      <div class="imageBox">
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
-      </div>
+      <div class="imageBox">`
+      if (c_image == null){
+        HTML = HTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">`
+      }
+      else{
+        HTML = HTML + `<img src="${c_image.image.url}" class="image">`
+      }
+      HTML = HTML + 
+      `</div>
       <div class="name_messageBox">
         <div class="nameBox">
           ${c_user.nickname}
@@ -371,13 +395,20 @@ $(function(){
     `
     return HTML
   }
-  function ShowOtherMessage1HTML(message, user){
+  function ShowOtherMessage1HTML(message, user, image){
     HTML =
     `
     <div class="partsBox" id="${message.id}">
       <div class="imageBox">
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
-      </div>
+    `
+    if (image == null){
+      HTML = HTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">`
+    }
+    else{
+      HTML = HTML + `<img src="${image.image.url}" class="image">`
+    }
+    HTML = HTML + 
+      `</div>
       <div class="name_messageBox">
         <div class="nameBox">
           ${user.nickname}
@@ -392,27 +423,39 @@ $(function(){
     `
     return HTML
   }
-  function ShowUserImageHTML(user){
+  function ShowUserImageHTML(item){
     HTML = 
     `
     <li class="user_list">
-      <div class="imageBox">
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn_down" id="${user.id}">
-      </div>
+      <div class="imageBox">`
+    if(item.image != null){
+      HTML = HTML + `<img src="${item.image.image.url}" class="match_user_imageBtn_down" id="${item.user.id}">`
+    }
+    else{
+      HTML = HTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="match_user_imageBtn_down" id="${item.user.id}">`
+    }
+    HTML = HTML +
+     `</div>
     </li>
     `
     return HTML
   }
-  function ShowGetMessageHTML(message, user){
+  function ShowGetMessageHTML(message, item){
     HTML = 
     `
     <div class="partsBox" id="${message.id}">
-      <div class="imageBox">
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
-      </div>
+      <div class="imageBox">`
+    if (item.image == null){
+      HTML = HTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">`
+    }
+    else{
+      HTML = HTML + `<img src="${item.image.image.url}" class="image">`
+    }
+      HTML = HTML + 
+      `</div>
       <div class="name_messageBox">
         <div class="nameBox">
-          ${user.nickname}
+          ${item.user.nickname}
         </div>
         <div class="messageBox">
           <div class="text">

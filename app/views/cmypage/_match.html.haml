@@ -5,7 +5,10 @@
         -# =item
         %li.user_list
           .imageBox
-            = image_tag 'member_photo_noimage_thumb.png', class: 'match_user_imageBtn_up', id: item[:user].id
+            - if item[:image] != nil
+              = image_tag item[:image].image_url, class: 'match_user_imageBtn_up', id: item[:user].id
+            - else
+              = image_tag 'member_photo_noimage_thumb.png', class: 'match_user_imageBtn_up', id: item[:user].id
       
       
   .middle_user_container

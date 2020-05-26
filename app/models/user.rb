@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :match_users
   has_many :messages
   has_many :matches, through: :match_users
-  has_many :follows
+  has_many :follows, dependent: :destroy
 
   # validates :username, presence: true
   validates :profile, length: { maximum: 200 }

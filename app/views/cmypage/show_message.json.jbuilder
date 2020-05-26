@@ -1,3 +1,4 @@
 json.user @user
-json.users @other_users
+json.other_items @others_items
 json.messages @messages
+json.item @item

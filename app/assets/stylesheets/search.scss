@@ -242,6 +242,11 @@
     height: 100%;
     width: 730px;
     .search-result-container{
+      h2.subtitle{
+        text-align: center;
+        font-size: 27px;
+        margin: 50px 0;
+      }
       .head-container{
         margin: 15px 0 15px 15px;
         padding: 8px 20px 20px 20px;
@@ -272,10 +277,6 @@
           width: 150px;
           height: 40px;
           padding: 5px 0 0 5px;
-          a{
-            text-decoration: none;
-            color: red;
-          }
           .searchBtn{
             border: 1px rgb(255, 0, 85) solid;
             display: block;
@@ -285,10 +286,12 @@
             line-height: 30px;
             border-radius: 16px;
             background-color: #ffffff;
+            color: red;
             filter: drop-shadow(2px 4px 4px rgb(255, 0, 85));
             &:hover{
               background-color: #fff;
               margin: 1px 0 0 0.5px;
+              cursor: pointer;
               filter: drop-shadow(1.5px 3px 2px rgb(255, 0, 85));
             }
             &:active{
@@ -463,36 +466,74 @@
         padding: 100px 0 0 100px;
         background-color: rgba(255, 255, 255, 0.7);
         display: block;
-        .c_user_detail_container{
-          position: relative;
-          width: 550px;
-          .detailBox{
-            background-color: red;
-            position: absolute;
-            top: 100px;
-            left: 200px;
-            .top_contents{
-              .top_side_bar{
-                .tellBox{
-
-                }
-                .messageBox{
-
-                }
-              }
-              .main_image{
+      }
+      .c_user_detail_container{
+        position: relative;
+        width: 550px;
+        .detailBox{
+          background-color: red;
+          position: absolute;
+          top: 100px;
+          left: 200px;
+          .top_contents{
+            .top_side_bar{
+              .tellBox{
 
               }
-              .bottom_slide_image{
+              .messageBox{
 
               }
             }
-            .main_detail{
-              .bottom_sidebar{
-
+            .main_image{
+              .main_topBox{
+                .main_image{
+                  width: 500px;
+                  height: 500px;
+                }
               }
+            }
+            .bottom_slide_image{
+              display: flex;
+              .icon{
+                width: 100px;
+                height: 100px;
+              }
+              .sub_icon{
+                width: 100px;
+                height: 100px;
+              }
+            }
+          }
+          .main_detail{
+            .bottom_sidebar{
 
             }
+          }
+        }
+      }
+      .background{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+      .qualification_container{
+        position: absolute;
+        top: 100px;
+        left: 200px;
+        z-index: 1;
+        width: 730px;
+        background-color: rgb(209, 196, 13);
+        h2.text{
+          font-size: 30px;
+          text-align: center;
+        }
+        .ageBox{
+          display: flex;
+          .wave{
+            margin: 20px 5px 0 5px;
           }
         }
       }

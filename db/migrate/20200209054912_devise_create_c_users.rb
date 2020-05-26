@@ -6,6 +6,13 @@ class DeviseCreateCUsers < ActiveRecord::Migration[5.2]
       t.string :nickname, null: false
       t.string :username, unique: true
       t.text :profile
+
+      # 0が男、1が女
+      t.integer :sex
+      t.integer :age
+      # 得意分野
+      t.string :speciality
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

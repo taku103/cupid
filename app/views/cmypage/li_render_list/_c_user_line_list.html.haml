@@ -5,7 +5,10 @@
         会員様
         = match_user[:user1].nickname
       .image_link
-        = image_tag('member_photo_noimage_thumb.png', class: "image")
+        - if match_user[:image1].present?
+          = image_tag(match_user[:image1].image_url, class: "image")
+        - else
+          = image_tag('member_photo_noimage_thumb.png', class: "image")
   .commentBox
     .top
       メモ：
@@ -17,7 +20,10 @@
         会員様
         = match_user[:user2].nickname
       .image_link
-        = image_tag('member_photo_noimage_thumb.png', class: "image")
+        - if match_user[:image2].present?
+          = image_tag(match_user[:image2].image_url, class: "image")
+        - else
+          = image_tag('member_photo_noimage_thumb.png', class: "image")
   .approvalBox
     
     .stepBox

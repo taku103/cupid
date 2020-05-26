@@ -1,5 +1,8 @@
 $(function(){
-  $(document).on('click', '.add_main_imageBtn', function(){
+
+  // userの非同期での画像設定
+  // クリックでメインイメージのHTMLを表示させる
+  $(document).on('click', '#u.add_main_imageBtn', function(){
     let CSRFValue = $(document).find(".update_profile_form").children('input[name="authenticity_token"]').val()
     let mainImageHTML = MainImageHTML(CSRFValue)
     $(document).find(".add_container").append(mainImageHTML)
@@ -7,7 +10,8 @@ $(function(){
     $(document).find(".background_container").height(window_height)
     $(document).find(".upload_file").css("display", "none")
   })
-  $(document).on('change', '.upload_file', function(){
+  // メインイメージのファイルが選択された時に読み込んでプレビュー表示する。
+  $(document).on('change', '#u.upload_file', function(){
     console.log($('input[type="file"]'))
     let fileReader = new FileReader();
     let files = $(this).first().prop('files')[0]
@@ -19,13 +23,14 @@ $(function(){
       $(document).find(".added_image").attr("src", src)
     }
   })
+  // 背景で画像選択画面を閉じる。
   $(document).on('click', '.background_container', function(){
     $(this).remove()
     $(document).find(".add_image_container").remove()
   })
-  //サブイメージの投稿
 
-  $(document).on("click", ".add_sub_imageBtn", function(){
+  //サブイメージの投稿
+  $(document).on("click", "#u.add_sub_imageBtn", function(){
     let CSRFValue = $(document).find(".update_profile_form").children('input[name="authenticity_token"]').val()
     let subImageHTML = SubImageHTML(CSRFValue)
     $(document).find(".add_container").append(subImageHTML)
@@ -34,6 +39,7 @@ $(function(){
     $(document).find(".upload_sub_file").css("display", "none")
   })
 
+  // サブイメージが選択された時の処理
   $(document).on("change", ".upload_sub_file", function(){
     let fileReader = new FileReader();
     let files = $(this).first().prop('files')[0]
@@ -118,12 +124,266 @@ $(function(){
     })
   })
 
+  // c_userの非同期画像作成
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(document).on('click', '#c.add_main_imageBtn', function(){
+    let CSRFValue = $(document).find(".update_profile_form").children('input[name="authenticity_token"]').val()
+    let mainImageHTML = CMainImageHTML(CSRFValue)
+    $(document).find(".add_container").append(mainImageHTML)
+    window_height = $(document).height()
+    $(document).find(".background_container").height(window_height)
+    $(document).find(".upload_file").css("display", "none")
+  })
+
+$(document).on('change', '#c.upload_file', function(){
+    console.log($('input[type="file"]'))
+    let fileReader = new FileReader();
+    let files = $(this).first().prop('files')[0]
+    fileReader.readAsDataURL(files)
+    fileReader.onloadend = function(){
+      console.log("fileReaderのロードが完了しました")
+      let src = fileReader.result
+      console.log(src)
+      $(document).find(".added_image").attr("src", src)
+    }
+  })
+
+  //サブイメージの投稿画面の表示
+  $(document).on("click", "#c.add_sub_imageBtn", function(){
+    let CSRFValue = $(document).find(".update_profile_form").children('input[name="authenticity_token"]').val()
+    let subImageHTML = CSubImageHTML(CSRFValue)
+    $(document).find(".add_container").append(subImageHTML)
+    window_height = $(document).height()
+    $(document).find(".background_container").height(window_height)
+    $(document).find(".c_upload_sub_file").css("display", "none")
+  })
+
+  // サブイメージが選択された時の処理
+  $(document).on("change", ".c_upload_sub_file", function(){
+    let fileReader = new FileReader();
+    let files = $(this).first().prop('files')[0]
+    let num = $(this).attr("id")
+    console.log(`idは${num}です`)
+    fileReader.readAsDataURL(files)
+    fileReader.onloadend = function(){
+      console.log("fileReaderのロードが完了しました")
+      let src = fileReader.result
+      $(document).find(`#${num}.c_upload_sub_file`).parent().find(".added_image").attr("src", src)
+    }
+  })
+
+  //特定写真の削除
+  $(document).on('click', '.image_deleteBtn', function(){
+    let image_id = $(document).find(".top_image").attr("id")
+    let num = image_id.replace(/[^0-9]/g, '')
+    if (num == "0"){ return }
+    let url = '/cmypage/delete_image'
+    let data = { id: num }
+    $.ajax({
+      url: url,
+      type: "GET",
+      data: data,
+      dataType: "json"
+    })
+    .done(function(data){
+      if (data.bool == 2){
+        let src = "/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png"
+        $(document).find(".top_image").attr('src', src)
+        $(document).find(".top_image").attr('id', "image0")
+        $(document).find(`#image${data.image_id}.slide_image`).remove()
+        cNoSlideImageHTML = CNoSlideImageHTML()
+        $(document).find(".image_container").prepend(cNoSlideImageHTML)
+      }else if (data.bool == 3){
+        $(document).find(`#image${data.image_id}.slide_image`).remove()
+        let src = "/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png"
+        let id = "image0"
+        if ($(document).find(".image_container").children().first().attr("class") == "add_main_imageBtn"){
+          src = $(document).find(".image_container").children().eq(1).attr("src")
+          id = $(document).find(".image_container").children().eq(1).attr("id")
+        }
+        else{
+          let image_id = $(document).find(".slide_image").first().attr("id")
+          id = image_id.replace(/[^0-9]/g, '')
+          src = $(document).find(".slide_image").first().attr("src")
+        }
+        $(document).find(".top_image").attr('src', src)
+        $(document).find(".top_image").attr('id', id)
+      }
+      image_container = $(document).find(".image_container")
+      if (image_container.children().length == 2 && image_container.children('.add_main_imageBtn').length != 0){
+        let src = "/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png"
+        $(document).find(".top_image").attr('src', src)
+        $(document).find(".top_image").attr('id', "image0")
+      }
+    })
+    .fail(function(){
+      alert('写真削除失敗')
+    })
+  })
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // 前提関数
+
+  function CMainImageHTML(CSRFValue){
+    html = 
+    `
+    <div class="background_container">
+    </div>
+    <div class="add_image_container">
+      <div class="imageBtn">
+        <form method="POST" accept-charset="UTF-8" class="upload_image_form" action="/cmypage/add_main_image" enctype="multipart/form-data">
+          <input type="hidden" name="authenticity_token" value="${CSRFValue}">
+          <label class="image_label">
+            <div class="added_imageBox">
+              <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="added_image">
+              <div class="text">＋写真をアップロード</div>
+            </div>
+            <input type="file" name="image[image]" class="upload_file" id="c">
+          </label>
+          <input type="submit" class="submit_main_image">
+        </form>
+      </div>
+    </div>
+    `
+    return html
+  }
+  function CSubImageHTML(CSRFValue){
+    html = 
+    `
+    <div class="background_container">
+    </div>
+    <div class="add_image_container">
+      <div class="imageBtn">
+        <form method="POST" accept-charset="UTF-8" class="upload_image_form" action="/cmypage/add_sub_image" enctype="multipart/form-data">
+          <input type="hidden" name="authenticity_token" value="${CSRFValue}">
+          <label class="image_label">
+            <div class="added_imageBox">
+              <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="added_image">
+              <div class="text">＋写真をアップロード</div>
+            </div>
+            <input type="file" name="image[image][]" class="c_upload_sub_file" id="one">
+          </label>
+          <label class="image_label">
+            <div class="added_imageBox">
+              <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="added_image">
+              <div class="text">＋写真をアップロード</div>
+            </div>
+            <input type="file" name="image[image][]" class="c_upload_sub_file" id="two">
+          </label>
+          <label class="image_label">
+            <div class="added_imageBox">
+              <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="added_image">
+              <div class="text">＋写真をアップロード</div>
+            </div>
+            <input type="file" name="image[image][]" class="c_upload_sub_file" id="three">
+          </label>
+          <input type="submit" class="submit_main_image">
+        </form>
+      </div>
+    </div>
+    `
+    return html
+  }
+
+
+  function CNoSlideImageHTML(){
+    html = 
+    `
+    <div class="add_main_imageBtn" id="c">
+      <img class="slide_image" src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png">
+      <div class="text">
+        ＋メイン写真
+      </div>
+    </div>
+    `
+    return html
+  }
 
   function NoSlideImageHTML(){
     html = 
     `
-    <div class="add_main_imageBtn">
+    <div class="add_main_imageBtn" id="u">
       <img class="slide_image" src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png">
       <div class="text">
         ＋メイン写真
@@ -184,7 +444,7 @@ $(function(){
               <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="added_image">
               <div class="text">＋写真をアップロード</div>
             </div>
-            <input type="file" name="image[image]" class="upload_file" id="image_image">
+            <input type="file" name="image[image]" class="upload_file" id="u">
           </label>
           <input type="submit" class="submit_main_image">
         </form>
@@ -193,6 +453,5 @@ $(function(){
     `
     return html
   }
-
   // 前提定数
 })

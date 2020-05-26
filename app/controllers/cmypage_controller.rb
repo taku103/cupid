@@ -1,8 +1,71 @@
 class CmypageController < ApplicationController
   before_action :authenticate_c_user!
   # before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def profile
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
+    @c_user = CUser.new
+    @image = Image.new
+    @c_user_info = CUser.find(current_c_user.id)
+    all_images = Image.where(user_id: current_c_user.id, bool: [2, 3])
+    
+    @main_image = all_images.find_by(bool: 2)
+    images = all_images.where(bool: 3)
+    @sub_images =[]
+    images.each do |image|
+      @sub_images << image
+    end
+  end
+
+  def update_profile
+    c_user = CUser.find(current_user.id)
+    if c_user.update(update_profile_params)
+      redirect_to search_cmypage_index_path
+    end
+  end
+
+  def add_main_image
+    c_user_images = Image.where(user_id: current_c_user.id, bool: 2)
+    c_user_image = c_user_images.first
+    c_user_images.each do |image|
+      if image != c_user_image
+        image.destroy
+      end
+    end
+    if c_user_image.present?
+      if c_user_image.update!(add_image_params)
+        redirect_to profile_cmypage_index_path
+      end
+    else
+      image = Image.new(add_image_params)
+      # image = Image.new(image: add_image_params, bool: 0, user_id: current_user.id)
+      image.bool = 2
+      if image.save!
+        redirect_to profile_cmypage_index_path
+      end
+    end
+  end
+
+  def add_sub_image
+    if Image.c_new_multiple_image(add_sub_image_params)
+      redirect_to profile_cmypage_index_path
+    end
+  end
+
+  def delete_image
+    @image_id = params[:id].to_i
+    image = Image.find(@image_id)
+    @bool = image.bool
+    if image.destroy!
+      respond_to do |format|
+        format.json
+      end
+    end
+  end
+
   def follow
     @follow = Follow.new
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     user_ids = []
     follows = Follow.where(c_user_id: current_c_user.id, bool: [1, 2])
     follows.each do |follow|
@@ -12,14 +75,17 @@ class CmypageController < ApplicationController
         user_ids << follow.user_id
       end
     end
-    @users = []
+    @items = []
     user_ids.each do |user_id|
       user = User.find(user_id)
-      @users << user
+      image = Image.find_by(user_id: user_id, bool: 0)
+      item = { user: user, image: image }
+      @items << item
     end
   end
 
   def follower
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     @follow = Follow.new
     user_ids = []
     follows = Follow.where(c_user_id: current_c_user.id, bool: [0, 1])
@@ -30,10 +96,12 @@ class CmypageController < ApplicationController
         user_ids << follow.user_id
       end
     end
-    @users = []
+    @items = []
     user_ids.each do |user_id|
       user = User.find(user_id)
-      @users << user
+      image = Image.find_by(user_id: user_id, bool: 0)
+      item = { user: user, image: image}
+      @items << item
     end
   end
 
@@ -83,17 +151,26 @@ class CmypageController < ApplicationController
   end
 
   def search
+    @element_per_page = 2
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     @follow = Follow.new
-    @users = []
-    users = User.limit(32)
-    users.each do |user|
-      if @users.include?(user)
+    original_users = []
+    @all_user_length = User.all.length
+    @users = User.page(params[:page]).per(@element_per_page)
+    @users.each do |user|
+      if original_users.include?(user)
       else
-        @users << user
+        original_users << user
       end
-      if @users.length >= 16
+      if original_users.length >= 16
         break
       end
+    end
+    @items = []
+    original_users.each do |user|
+      image = Image.find_by(user_id: user.id, bool: 0)
+      item = { user: user, image: image}
+      @items << item
     end
   end
 
@@ -111,6 +188,7 @@ class CmypageController < ApplicationController
 
   def match
     @message = Message.new
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     matches = current_c_user.matches
     @items = []
     matches.each do |match|
@@ -129,8 +207,15 @@ class CmypageController < ApplicationController
         else
           item[:user] = user
         end
-        @items << item
+        if item != {}
+          @items << item
+        end
       end
+    end
+    @items.each do |item|
+      user = item[:user]
+      image = Image.find_by(user_id: user.id, bool: 0)
+      item[:image] = image
     end
   end
 
@@ -138,7 +223,9 @@ class CmypageController < ApplicationController
     matches = []
     c_matches = current_c_user.matches
     user_id = params[:user_id].to_i
-    @user = User.find(user_id)
+    user = User.find(user_id)
+    image = Image.find_by(user_id: user.id, bool: 0)
+    @item = { user: user, image:image }
     c_matches.each do |match|
       match.match_users.each do |match_user|
         if match_user.user_id == user_id      
@@ -147,12 +234,17 @@ class CmypageController < ApplicationController
         end
       end
     end
-    @other_users = []
+    @others_items = []
     matches.each do |match|
       match.match_users.each do |match_user|
         if match_user.user_id != user_id
           u = User.find(match_user.user_id)
-          @other_users << u
+          image = Image.find_by(user_id: u.id, bool: 0)
+          item = { user: u, image: image }
+          if @others_items.include?(item)
+          else
+            @others_items << item
+          end
         end
       end
     end
@@ -177,20 +269,20 @@ class CmypageController < ApplicationController
   def show_user_message
     user_id = params[:user_id]
     @messages = Message.where(user_id: user_id, match_c_user_id: current_c_user.id, bool: [0, 2])
-    @user = User.find(user_id)
+    user = User.find(user_id)
+    image = Image.find_by(user_id: user_id, bool: 0)
+    @item = {user: user, image: image}
   end
 
   def create_message
     @message = Message.create(create_message_params)
-
   end
 
   def select_match
-
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
   end
 
   def create_match
-    # binding.pry
     user_id_1 = params[:user_id_1]
     user_id_2 = params[:user_id_2]
     match = current_c_user.matches.create(step: 0, memo: params[:memo])
@@ -201,6 +293,7 @@ class CmypageController < ApplicationController
 
   def match_approvement
     @match_users = []
+    @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
     matches = Match.where(c_user_id: current_c_user.id, step: 0)
     matches.each do |match|
       items = {}
@@ -211,20 +304,21 @@ class CmypageController < ApplicationController
         if i == 0
           items[:user1] = user
           items[:step1] = step
+          items[:image1] = Image.find_by(user_id: user.id, bool: 0)
         elsif i == 1
           items[:user2] = user
           items[:step2] = step
+          items[:image2] = Image.find_by(user_id: user.id, bool: 0)
         end
       end
       memo = match.memo
-      
       items[:memo] = memo
+
       if @match_users.include?(items)
-      else
+      elsif items[:user1].present?
         @match_users << items
       end
     end
-
   end
 
   def confirm_match
@@ -232,9 +326,8 @@ class CmypageController < ApplicationController
   end
 
   def show_user
-    # binding.pry
     @create_id = params[:create_id].to_s
-    @users = []
+    @items = []
     user_ids = []
     # @follows = current_c_user.follows.where(bool: 1)
     follows = current_c_user.follows.where(bool: 1).limit(32)
@@ -250,7 +343,10 @@ class CmypageController < ApplicationController
       end
     end
     user_ids.each do |user_id|
-      @users << User.find(user_id)
+      item = {}
+      item[:user] = User.find(user_id)
+      item[:image] = Image.find_by(user_id: user_id, bool: 0)
+      @items << item
     end
   end
 
@@ -258,11 +354,16 @@ class CmypageController < ApplicationController
     user_id = params[:user_id].to_i
     @select_id = params[:select_id].to_i
     @user = User.find(user_id)
+    @image = Image.find_by(user_id: user_id, bool: 0)
   end
 
   def show_detail
     user_id = params[:user_id]
     @user = User.find(user_id)
+    @image = Image.find_by(user_id: user_id, bool: 0)
+    @sub_images = Image.where(user_id: user_id, bool: 1)
+    @student_length = current_c_user.follows.where(bool: 1).length
+    @follower_length = current_c_user.follows.where(bool: [0, 1]).length
   end
 
   def skyway
@@ -284,8 +385,38 @@ class CmypageController < ApplicationController
       @bool = 0
     end
   end
+
+  def qualification
+    down_age = params[:downage]
+    up_age = params[:upage]
+    sex = params[:sex]
+    if sex == ""
+      sex = [0, 1]
+    end
+    if down_age == ""
+      down_age = "18"
+    end
+    if up_age == ""
+      up_age = "100"
+    end
+    qualification_users = User.where(sex: sex, age: down_age..up_age)
+    users =   qualification_users.limit(16)
+    @my_image = Image.find_by(user_id: current_user.id, bool:0)
+    @follow = Follow.new
+    @items = []
+    users.each do |user|
+      image = Image.find_by(user_id: user.id, bool: 0)
+      item = {image: image, user: user}
+      @items << item
+    end
+  end
+
   def end_call
     redirect_to action: :search
+  end
+
+  def after_sign_in_path_for(resource)
+    search_cmypage_index_path # ログイン後に遷移するpathを設定
   end
 
   private
@@ -306,5 +437,14 @@ class CmypageController < ApplicationController
   end
   def create_message_params
     params.require(:message).permit(:user_id, :bool, :content, :match_c_user_id)
+  end
+  def update_profile_params
+    params.require(:c_user).permit(:profile, :username, :nickname, :sex, :age, :speciality)
+  end
+  def add_image_params
+    params.require(:image).permit(:image).merge(user_id: current_c_user.id)
+  end
+  def add_sub_image_params
+    params.require(:image).permit(image: []).merge(user_id: current_c_user.id)
   end
 end
