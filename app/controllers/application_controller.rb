@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     when CUser
       search_cmypage_index_path
     end
-
   end
   protected
   def configure_permitted_parameters
