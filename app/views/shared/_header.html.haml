@@ -31,7 +31,7 @@
           uログアウト
     - else
       .header_rightBox
-        = link_to "#", class: "facebookLogin" do
+        = link_to user_facebook_omniauth_authorize_path, class: "facebookLogin" do
           Facebookでログイン
         = link_to "/mypage/search", class: "mailLogin" do
           メールアドレスでログイン
