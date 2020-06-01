@@ -34,8 +34,8 @@
             = form.file_field :image, class: "upload_image"
             %i.far.fa-image
           .submitView
-            = form.submit "", class: "c_message_submitBtn"
-            %i.far.fa-paper-plane
+            = button_tag type: 'submit', class: "c_message_submitBtn" do
+              %i.far.fa-paper-plane
             
 
   

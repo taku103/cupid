@@ -4,7 +4,10 @@
       .text
         お相手
       .image_link
-        = image_tag('member_photo_noimage_thumb.png', class: "image")
+        - if match[:image].present? && match[:image].image_url.present?
+          = image_tag(match[:image].image_url, class: "image")
+        - else 
+          = image_tag('member_photo_noimage_thumb.png', class: "image")
       .nameBox
         = "#{match[:user].nickname}さん"
   .commentBox
@@ -19,7 +22,10 @@
       .text
         キューピット
       .image_link
-        = image_tag('member_photo_noimage_thumb.png', class: "image")
+        - if match[:c_image].present? && match[:c_image].image_url.present?
+          = image_tag(match[:c_image].image_url, class: "image")
+        - else
+          = image_tag('member_photo_noimage_thumb.png', class: "image")
       .c_nameBox
         = "#{match[:c_user].nickname}"
   - match[:match].match_users.each do |match_user|

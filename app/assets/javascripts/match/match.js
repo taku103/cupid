@@ -184,7 +184,7 @@ $(function(){
         if (message.user_id == data.user.id){
           HTML = HTML + ShowOtherMessage1HTML(message, data.user, data.image)
         }
-        else if(message.user_id != data.user_id){
+        else if(message.user_id != data.user.id){
           HTML = HTML + ShowMyMessage1HTML(message)
         } 
       })
@@ -282,8 +282,13 @@ $(function(){
     `
     <li class="listBox">
       <div class="imageBox">
-        <div class="image_link">
-        <img src="${item.image.image.url}" class="image">
+        <div class="image_link">`
+    if (item.image != null && item.image.image.url != null){
+      forUserHTML = forUserHTML + `<img src="${item.image.image.url}" class="image">`
+    }else{
+      forUserHTML = forUserHTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">`
+    }
+    forUserHTML = forUserHTML + `
         </div>
       </div>
       <div class="bottomBox">

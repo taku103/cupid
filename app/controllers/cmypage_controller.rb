@@ -189,7 +189,7 @@ class CmypageController < ApplicationController
   def match
     @message = Message.new
     @my_image = Image.find_by(user_id: current_c_user.id, bool: 2)
-    matches = current_c_user.matches
+    matches = current_c_user.matches.where(step: 1)
     @items = []
     matches.each do |match|
       match.users.each do |user|
@@ -221,7 +221,7 @@ class CmypageController < ApplicationController
 
   def show_message
     matches = []
-    c_matches = current_c_user.matches
+    c_matches = current_c_user.matches.where(step: 1)
     user_id = params[:user_id].to_i
     user = User.find(user_id)
     image = Image.find_by(user_id: user.id, bool: 0)
@@ -399,12 +399,12 @@ class CmypageController < ApplicationController
     if up_age == ""
       up_age = "100"
     end
-    qualification_users = User.where(sex: sex, age: down_age..up_age)
-    users =   qualification_users.limit(16)
-    @my_image = Image.find_by(user_id: current_user.id, bool:0)
+    @element_per_page = 2
+    @users = User.where(sex: sex, age: down_age..up_age).page(params[:page]).per(@element_per_page)
+    @my_image = Image.find_by(user_id: current_user.id, bool: 0)
     @follow = Follow.new
     @items = []
-    users.each do |user|
+    @users.each do |user|
       image = Image.find_by(user_id: user.id, bool: 0)
       item = {image: image, user: user}
       @items << item

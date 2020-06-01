@@ -80,12 +80,18 @@ $(function(){
     `
     return HTML
   }
-  function ShowOtherMessageHTML(message, user){
+  function ShowOtherMessageHTML(message, user, image){
     HTML = 
     `
     <div class="partsBox" id="${message.id}">
-      <div class="imageBox">
-        <img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">
+      <div class="imageBox">`
+    if (image != null && image.image.url != null){
+      HTML = HTML + `<img src="${image.image.url}" class="image">`
+    }
+    else{
+      HTML = HTML + `<img src="/assets/member_photo_noimage_thumb-3f5db95de8bc1582908f994329d16ed91cf4398c2e3e0cc7387e0f2f8f0c88a9.png" class="image">`
+    }
+    HTML = HTML + `
       </div>
       <div class="name_messageBox">
         <div class="nameBox">
@@ -138,7 +144,7 @@ $(function(){
         HTML = ``
         data.messages.forEach(function(message){
           message.content = message.content.replace(/\n/g, '<br>')
-          HTML = HTML + ShowOtherMessageHTML(message, data.user)
+          HTML = HTML + ShowOtherMessageHTML(message, data.user, data.image)
         })
         $(document).find(".top_messages").append(HTML)
         scroll_height = $(document).find(".top_messages").get(0).scrollHeight
@@ -174,7 +180,7 @@ $(function(){
         data.messages.forEach(function(message){
           console.log(message.content)
           message.content = message.content.replace(/\n/g, '<br>')
-          HTML = HTML + ShowOtherMessageHTML(message, data.c_user)
+          HTML = HTML + ShowOtherMessageHTML(message, data.c_user, data.c_image)
         })
         $(document).find(".top_messages").append(HTML)
         scroll_height = $(document).find(".top_messages").get(0).scrollHeight
@@ -212,7 +218,7 @@ $(function(){
         HTML = ``
         data.messages.forEach(function(message){
           message.content = message.content.replace(/\n/g, '<br>')
-          HTML = HTML + ShowOtherMessageHTML(message, data.user)
+          HTML = HTML + ShowOtherMessageHTML(message, data.user, data.image)
         })
         $(document).find(".top_messages").append(HTML)
         scroll_height = $(document).find(".top_messages").get(0).scrollHeight

@@ -12,12 +12,14 @@ class Api::MessagesController < ApplicationController
       end
     end
     @user = User.find(user_id)
-    @messages = Message.where(user_id: user_id, bool: 1).where("id > ?", last_id)
+    @image = Image.find_by(user_id: user_id, bool: 0)
+    @messages = Message.where(match_c_user_id: match_id, user_id: user_id, bool: 1).where("id > ?", last_id)
   end
   def index_2
     last_id = params[:last_id].to_i
     c_user_id = params[:c_user_id].to_i
     @c_user = CUser.find(c_user_id)
+    @c_image = Image.find_by(user_id: c_user_id, bool: 2)
     @messages = []
     messages = Message.where(match_c_user_id: c_user_id, user_id: current_user.id, bool: 2).where("id > ?", last_id)
     messages.each do |message|
@@ -33,5 +35,6 @@ class Api::MessagesController < ApplicationController
       @messages << message
     end
     @user = User.find(user_id)
+    @image = Image.find_by(user_id: user_id, bool: 0)
   end
 end

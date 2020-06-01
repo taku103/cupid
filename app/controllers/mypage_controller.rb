@@ -50,12 +50,12 @@ class MypageController < ApplicationController
     if up_age == ""
       up_age = "100"
     end
-    qualification_c_users = CUser.where(sex: sex, age: down_age..up_age)
-    c_users =   qualification_c_users.limit(16)
+    @element_per_page = 2
+    @c_users = CUser.where(sex: sex, age: down_age..up_age).page(params[:page]).per(@element_per_page)
     @my_image = Image.find_by(user_id: current_user.id, bool:0)
     @follow = Follow.new
     @items = []
-    c_users.each do |c_user|
+    @c_users.each do |c_user|
       image = Image.find_by(user_id: c_user.id, bool: 2)
       item = {image: image, c_user: c_user}
       @items << item
@@ -238,6 +238,7 @@ class MypageController < ApplicationController
       match.match_users.each do |match_user|
         if match_user.user_id != current_user.id
           matches_users[:user] = User.find(match_user.user_id)
+          matches_users[:image] = Image.find_by(user_id: matches_users[:user].id, bool: 0)
         end
       end
       matches_users[:match] = match
@@ -248,6 +249,7 @@ class MypageController < ApplicationController
       end
       if matches_users.present?
         matches_users[:c_user] = CUser.find(matches_users[:match].c_user_id)
+        matches_users[:c_image] = Image.find_by(user_id: matches_users[:c_user].id, bool: 2)
         @matches << matches_users
       end
     end
@@ -362,7 +364,6 @@ class MypageController < ApplicationController
     @user = User.find(other_user_id)
     matches.each do |match|
       match.match_users.each do |match_user|
-        
         if match_user.user_id == other_user_id
           @match_id = match_user.match_id
         end
@@ -374,13 +375,17 @@ class MypageController < ApplicationController
       @messages << get_message
     end
     send_messages.each do |send_message|
-      @messages.each_with_index do |message, i|
-        if message.id > send_message.id
-          @messages.insert(i, send_message)
-          break
-        elsif @messages.length == i + 1
-          @messages.append(send_message)
-          break
+      if @messages.length == 0
+        @messages.append(send_message)
+      else
+        @messages.each_with_index do |message, i|
+          if message.id > send_message.id
+            @messages.insert(i, send_message)
+            break
+          elsif @messages.length == i + 1
+            @messages.append(send_message)
+            break
+          end
         end
       end
     end
