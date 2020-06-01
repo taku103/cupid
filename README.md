@@ -34,17 +34,17 @@ AWS, Nginx, Unicorn, capistranoでの自動化
 ログアウトしたい場合はトップページにURLで飛んでいただけると右上がu(キューピットの場合はc)ログアウトになっているはずなのでそこをクリックすればログアウトできます。
 
 *データベース
-table
-c_user
-follow
-image
-match_user
-match
-message
-skyway
-user
+ex) table: {culumn, culumn, ..}
+c_user: {id, nickname, username, profile, sex, age, speciality, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, created_at, updated_at}
+follow: {id, user_id, c_user_id, bool, created_at, updated_at}
+image: {id, src, user_id, bool, created_at, updated_at, image}
+match_user: {id, user_id, match_id, content, step, created_at, updated_at}
+match: {id, c_user_id, step, memo, created_at, updated_at}
+message: {id, content, image, user_id, match_c_user_id, bool, created_at, updated_at}
+skyway: {id, code, user_c_user_id, bool, created_at, updated_at}
+user: {id, nickname, username, profile, sex, age, comment, uid, provider, name, image, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, created_at, updated_at}
 
 *ローカル環境で動いて本番環境で動かないもの
 ・skywayのp2p通信
 ・facebook認証
-理由：両方SSL化しないと本番環境では使えないため(AWSの課金が必要になってくるため、SSL化していません)
+理由：上記２つはSSL化しないと本番環境では使えないため(AWSの課金が必要になってくるため、SSL化していません)
